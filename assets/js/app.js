@@ -1,5 +1,5 @@
-// Voice Receptionist Automation demo. No dependencies.
-// Every scenario is complete in the HTML; this file shows one at a time and reveals it step by step.
+// Voice Receptionist Automation. No dependencies.
+// Every scenario is complete in the HTML; this file shows one at a time and ties its chapters to scroll position.
 (function () {
   'use strict';
 
@@ -43,136 +43,150 @@
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && list.classList.contains('open')) { setNav(false); toggle.focus(); } });
   }
 
-  /* ---------- demo ---------- */
-  var stage = $('#stage');
-  if (stage) {
+  /* ---------- story: the call follows the visitor's scroll position ---------- */
+  // Each chapter is a real section in the page. Its position against a reading line decides the
+  // current step. Nothing runs on a timer: when scrolling stops, the story stops.
+  var stage = $('#stage'), bar = $('#story-bar');
+  if (stage && bar) {
     var scns = {};
     $$('.scn', stage).forEach(function (a) { scns[a.getAttribute('data-scn')] = a; });
-    var bizBtns = $$('.biz'), subWrap = $('.sub-select', stage), subBtns = $$('.sub', stage);
-    var callStep = $('#call-step'), callLine = $('.call-line', stage), live = $('#demo-live');
-    var btn = {}; $$('.ctl', stage).forEach(function (b) { btn[b.getAttribute('data-act')] = b; });
-    var NAMES = { salon: 'Salon', hvac: 'HVAC', plumbing: 'Plumbing', 'restaurant-reserve': 'Restaurant, reserve a table', 'restaurant-order': 'Restaurant, pickup order' };
+    var bizBtns = $$('.biz', bar), subWrap = $('.sub-select', bar), subBtns = $$('.sub', bar);
+    var rail = $('.rail', stage), navOl = $('.ch-nav ol', stage), cue = $('.cue', stage);
+    var art = $('.rail-art img', stage), wavePath = $('.rail .wave-line', stage);
+    var HEAD = 64;
+    var wideMq = window.matchMedia('(min-width: 1024px) and (min-height: 660px)');
 
-    // One state object. Every scheduled step carries the token it was created with,
-    // so a switch, pause or restart makes any pending step a no-op.
-    var S = { scn: null, step: 0, playing: false, timer: 0, token: 0, lastSub: 'restaurant-reserve' };
-    var active = function () { return scns[S.scn]; };
-    var total = function () { return $$('.flow li', active()).length; };
-
-    function stop() { S.playing = false; S.token++; clearTimeout(S.timer); S.timer = 0; }
+    var S = { id: null, step: -1, sticky: false, chapters: [], links: [], lastSub: 'restaurant-reserve', ticking: false };
+    var active = function () { return scns[S.id]; };
 
     function applyBinds(a) {
       $$('.choices', a).forEach(function (fs) {
-        var checked = $('input:checked', fs); if (!checked) return;
-        $$('[data-bind="' + checked.name + '"]', a).forEach(function (el) { el.textContent = checked.getAttribute('data-label'); });
+        var c = $('input:checked', fs); if (!c) return;
+        $$('[data-bind="' + c.name + '"]', a).forEach(function (el) { el.textContent = c.getAttribute('data-label'); });
       });
-    }
-    function resetChoices(a) {
-      $$('.choices input', a).forEach(function (i) { i.checked = i.defaultChecked; });
-      applyBinds(a);
     }
 
-    function render(announce) {
-      var a = active(), n = total(), names = $$('.flow li', a);
-      $$('[data-step]', a).forEach(function (el) { el.classList.toggle('on', +el.getAttribute('data-step') <= S.step); });
-      names.forEach(function (li, i) {
-        li.classList.toggle('done', i + 1 < S.step || (S.step === n && i + 1 === n));
-        if (i + 1 === S.step) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
-      });
-      var label = S.step === 0 ? 'Ready. Press Play example or Next step.'
-        : (S.step === n ? 'Complete · ' : 'Step ' + S.step + ' of ' + n + ' · ') + names[S.step - 1].textContent;
-      callStep.textContent = label;
-      callLine.textContent = S.step === 0 ? 'Incoming call' : S.step === n ? 'Call summary' : 'On the call';
-      btn.play.disabled = S.playing;
-      btn.play.textContent = S.step >= n ? 'Play again' : S.step > 0 ? 'Resume' : 'Play example';
-      btn.pause.disabled = !S.playing;
-      btn.next.disabled = S.step >= n;
-      btn.restart.disabled = S.step === 0 && !S.playing;
-      stage.classList.toggle('is-live', S.playing || (S.step > 0 && S.step < n));
-      // keep the newest line in view inside the conversation panel (desktop scroll box only; the page itself never moves)
-      var msgs = $('.msgs', a);
-      if (msgs && msgs.scrollHeight > msgs.clientHeight) msgs.scrollTop = msgs.scrollHeight;
-      if (announce) {
-        var said = $$('.msg[data-step="' + S.step + '"]', a).map(function (m) { return m.textContent.replace(/\s+/g, ' ').trim(); });
-        live.textContent = label + (said.length ? '. ' + said.join(' ') : '');
+    // Layout: sticky three-column stage only when the window is wide and tall enough AND the
+    // receiver rail and summary actually fit; otherwise chapters flow normally.
+    function decideMode() {
+      var a = active(); if (!a) return;
+      var sticky = wideMq.matches;
+      stage.classList.toggle('sticky-mode', sticky);
+      bar.classList.toggle('is-pinned', sticky);
+      var barH = sticky ? bar.offsetHeight : 0;
+      root.style.setProperty('--bar', barH + 'px');
+      if (sticky) {
+        // Measure every scenario's finished summary so one window never mixes layouts.
+        var avail = window.innerHeight - HEAD - barH - 32;
+        var keys = Object.keys(scns), tallest = 0;
+        keys.forEach(function (k) { scns[k].classList.add('is-active'); });
+        var all = $$('.summary .rec > div, .summary .result', stage);
+        var was = all.map(function (el) { return el.classList.contains('on'); });
+        all.forEach(function (el) { el.classList.add('on'); });
+        keys.forEach(function (k) { tallest = Math.max(tallest, $('.summary', scns[k]).offsetHeight); });
+        all.forEach(function (el, i) { el.classList.toggle('on', was[i]); });
+        keys.forEach(function (k) { scns[k].classList.toggle('is-active', k === S.id); });
+        var fits = tallest + 20 <= avail && rail.offsetHeight + 20 <= avail;
+        if (!fits) { sticky = false; stage.classList.remove('sticky-mode'); bar.classList.remove('is-pinned'); root.style.setProperty('--bar', '0px'); }
       }
-      wave.target = S.playing ? 1 : (S.step > 0 && S.step < n ? 0.35 : 0.08);
-      wave.run();
+      S.sticky = sticky;
+      stage.classList.toggle('strip', !sticky && window.innerHeight >= 560);
+      // In the sticky layout the summary mirrors the per-chapter details, which stay readable to
+      // screen readers in reading order; hide the mirror so nothing is announced twice.
+      $$('.summary', stage).forEach(function (s) { if (sticky) s.setAttribute('aria-hidden', 'true'); else s.removeAttribute('aria-hidden'); });
+      S.step = -1;
+      update();
     }
 
-    function delayFor(step) {
-      var chars = $$('[data-step="' + step + '"]', active()).reduce(function (t, el) { return t + (el.classList.contains('msg') ? el.textContent.length : 0); }, 0);
-      return Math.min(5200, 1300 + chars * 24);
+    function setStep(step) {
+      var a = active(), n = S.chapters.length;
+      S.chapters.forEach(function (ch, i) { ch.classList.toggle('is-current', i + 1 === step); });
+      $$('.rec > div, .result', a).forEach(function (el) {
+        var s = +el.getAttribute('data-step');
+        el.classList.toggle('on', !S.sticky || s <= step);
+        el.classList.toggle('fresh', S.sticky && s === step);
+      });
+      S.links.forEach(function (l, i) {
+        l.classList.toggle('done', i + 1 < step || (step === n && i + 1 === n));
+        if (i + 1 === step) l.setAttribute('aria-current', 'step'); else l.removeAttribute('aria-current');
+      });
+      cue.textContent = step <= 0 ? 'Scroll to follow the call.' : step >= n ? 'Call complete' : 'Chapter ' + step + ' of ' + n;
     }
-    function schedule(ms) {
-      var token = S.token;
-      S.timer = setTimeout(function () {
-        if (token !== S.token || !S.playing) return;           // stale: a switch, pause or restart happened
-        S.step++;
-        if (S.step >= total()) { S.step = total(); S.playing = false; }
-        render(true);
-        if (S.playing) schedule(delayFor(S.step));
-      }, ms);
-    }
-    function play() {
-      if (S.playing) return;
-      stop();
-      if (S.step >= total()) { S.step = 0; }
-      S.playing = true;
-      render(false);
-      schedule(S.step === 0 ? 500 : 700);
-    }
-    function pause() { stop(); render(false); live.textContent = 'Paused at ' + callStep.textContent; }
-    function next() { stop(); if (S.step < total()) S.step++; render(true); }
-    function restart() { stop(); S.step = 0; resetChoices(active()); render(false); play(); }
 
-    function activate(id, announce) {
+    function wave(amp, phase) {
+      var out = '', k = 72;
+      for (var i = 0; i <= k; i++) {
+        var u = i / k, edge = Math.sin(Math.PI * u);
+        var words = 0.55 + 0.45 * Math.sin(u * 13 + phase * 1.4) * Math.sin(u * 5 - phase * 0.8);
+        var y = 30 + (Math.sin(u * 90 + phase * 9) * 0.6 + Math.sin(u * 37 - phase * 6) * 0.4) * words * edge * amp * 26;
+        out += (i ? ' L' : 'M') + (u * 200).toFixed(1) + ' ' + y.toFixed(1);
+      }
+      return out;
+    }
+
+    function update() {
+      S.ticking = false;
+      var chs = S.chapters; if (!chs.length) return;
+      var vh = window.innerHeight, line = vh * (S.sticky ? 0.45 : 0.5);
+      var step = 0, frac = 0;
+      for (var i = 0; i < chs.length; i++) {
+        var r = chs[i].getBoundingClientRect();
+        if (r.top <= line) { step = i + 1; frac = Math.min(1, Math.max(0, (line - r.top) / Math.max(1, r.height))); }
+      }
+      if (step !== S.step) { S.step = step; setStep(step); }
+      if (S.sticky && motion()) {
+        var first = chs[0].getBoundingClientRect(), last = chs[chs.length - 1].getBoundingClientRect();
+        var p = Math.min(1, Math.max(0, (line - first.top) / Math.max(1, last.bottom - first.top)));
+        art.style.setProperty('--rot', (-5 + 9 * p).toFixed(2) + 'deg');
+        art.style.setProperty('--ty', (-8 * Math.sin(Math.PI * frac)).toFixed(1) + 'px');
+        var speaking = step > 0 && step < chs.length ? 0.2 + 0.8 * Math.sin(Math.PI * frac) : 0.08;
+        wavePath.setAttribute('d', wave(speaking, window.scrollY * 0.012));
+      } else {
+        art.style.removeProperty('--rot'); art.style.removeProperty('--ty');
+        wavePath.setAttribute('d', wave(0.25, 0));
+      }
+    }
+    function onScroll() { if (!S.ticking) { S.ticking = true; requestAnimationFrame(update); } }
+
+    function buildNav(a) {
+      navOl.textContent = '';
+      S.links = S.chapters.map(function (ch) {
+        var li = doc.createElement('li'), link = doc.createElement('a');
+        var n = doc.createElement('span'), t = doc.createElement('span');
+        link.href = '#' + ch.id;
+        n.className = 'n'; n.setAttribute('aria-hidden', 'true'); n.textContent = String(+$('.ch-n', ch).textContent);
+        t.className = 't'; t.textContent = $('.ch-label', ch).lastChild.textContent;
+        link.appendChild(n); link.appendChild(t); li.appendChild(link); navOl.appendChild(li);
+        return link;
+      });
+    }
+
+    function storyTop() {
+      var el = S.sticky ? stage : bar;
+      return Math.max(0, el.getBoundingClientRect().top + window.scrollY - HEAD - (S.sticky ? bar.offsetHeight : 0) - 8);
+    }
+
+    function activate(id, fromUser) {
       if (!scns[id]) return;
-      stop();
-      S.scn = id; S.step = 0;
+      var prev = active();
+      if (prev) $$('.on, .fresh, .is-current', prev).forEach(function (el) { el.classList.remove('on', 'fresh', 'is-current'); });
+      S.id = id; S.step = -1;
       Object.keys(scns).forEach(function (k) { scns[k].classList.toggle('is-active', k === id); });
-      $$('.on', stage).forEach(function (el) { el.classList.remove('on'); });
-      var biz = scns[id].getAttribute('data-biz');
-      stage.setAttribute('data-scn', id); stage.setAttribute('data-biz', biz);
+      var a = scns[id], biz = a.getAttribute('data-biz');
+      stage.setAttribute('data-scn', id);
       bizBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-biz') === biz)); });
       subWrap.hidden = biz !== 'restaurant';
       if (biz === 'restaurant') { S.lastSub = id; subBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-scn') === id)); }); }
-      resetChoices(scns[id]);
-      var msgs = $('.msgs', scns[id]); if (msgs) msgs.scrollTop = 0;
-      render(false);
-      if (announce) live.textContent = 'Showing the ' + NAMES[id] + ' example. Press Play example or Next step.';
+      $$('.choices input', a).forEach(function (i) { i.checked = i.defaultChecked; });
+      applyBinds(a);
+      S.chapters = $$('.ch', a);
+      buildNav(a);
+      decideMode();
+      if (fromUser) {
+        var top = storyTop();
+        if (Math.abs(window.scrollY - top) > 4) window.scrollTo({ top: top, behavior: motion() ? 'smooth' : 'auto' });
+      }
     }
-
-    /* centre voice line: moves only while the example plays */
-    var wave = (function () {
-      var svg = $('.stage-center .wave'), path = svg && $('.wave-line', svg);
-      var w = { amp: 0.08, target: 0.08, t: 0, raf: 0, last: 0, visible: true };
-      function d(amp, t) {
-        var out = '', n = 80;
-        for (var i = 0; i <= n; i++) {
-          var u = i / n, edge = Math.sin(Math.PI * u);
-          var words = 0.55 + 0.45 * Math.sin(u * 13 + t * 1.4) * Math.sin(u * 5 - t * 0.8);
-          var y = 30 + (Math.sin(u * 90 + t * 9) * 0.6 + Math.sin(u * 37 - t * 6) * 0.4) * words * edge * amp * 26;
-          out += (i ? ' L' : 'M') + (u * 200).toFixed(1) + ' ' + y.toFixed(1);
-        }
-        return out;
-      }
-      function frame(now) {
-        var dt = w.last ? Math.min(0.05, (now - w.last) / 1000) : 0; w.last = now;
-        w.amp += (w.target - w.amp) * Math.min(1, dt * 4);
-        w.t += dt;
-        path.setAttribute('d', d(w.amp, w.t));
-        var settled = Math.abs(w.amp - w.target) < 0.01 && w.target < 0.1;
-        w.raf = settled ? 0 : requestAnimationFrame(frame);
-      }
-      w.run = function () {
-        if (!path) return;
-        if (!motion() || !w.visible || doc.hidden) { if (w.raf) cancelAnimationFrame(w.raf); w.raf = 0; w.amp = w.target; path.setAttribute('d', d(Math.min(w.target, 0.3), 0)); return; }
-        if (!w.raf) { w.last = 0; w.raf = requestAnimationFrame(frame); }
-      };
-      if (svg && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { w.visible = es[0].isIntersecting; w.run(); }).observe(svg);
-      return w;
-    })();
 
     bizBtns.forEach(function (b) {
       b.addEventListener('click', function () {
@@ -181,25 +195,17 @@
       });
     });
     subBtns.forEach(function (b) { b.addEventListener('click', function () { activate(b.getAttribute('data-scn'), true); }); });
-    btn.play.addEventListener('click', play);
-    btn.pause.addEventListener('click', pause);
-    btn.next.addEventListener('click', next);
-    btn.restart.addEventListener('click', restart);
     stage.addEventListener('change', function (e) { if (e.target.closest('.choices')) applyBinds(active()); });
-    doc.addEventListener('visibilitychange', function () { if (doc.hidden && S.playing) pause(); });
-    onMq(function () { wave.run(); });
+
+    // One scroll listener and one resize listener for the life of the page.
+    window.addEventListener('scroll', onScroll, { passive: true });
+    var rz = 0;
+    window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(decideMode, 150); });
+    if (wideMq.addEventListener) wideMq.addEventListener('change', decideMode);
+    onMq(function () { update(); });
+    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(decideMode);
 
     activate(stage.getAttribute('data-scn') || 'hvac', false);
-
-    // Scroll introduces the demo once: it starts playing the first time it comes into view (text only, never sound).
-    if (motion() && 'IntersectionObserver' in window) {
-      var intro = new IntersectionObserver(function (es) {
-        if (!es[0].isIntersecting) return;
-        intro.disconnect();
-        if (S.step === 0 && !S.playing) play();
-      }, { threshold: 0.35 });
-      intro.observe(stage);
-    }
   }
 
   /* ---------- inquiry form: validates, then opens an email draft ---------- */

@@ -54,45 +54,41 @@
   </figure>
 </section>
 
-<!-- ============ DEMO ============ -->
-<section class="demo" id="demo" aria-labelledby="demo-title">
+<!-- ============ STORY ============ -->
+<section class="story" id="demo" aria-labelledby="demo-title">
   <div class="demo-head">
     <h2 id="demo-title" class="sec-title">Choose a business and follow one call.</h2>
-    <p class="sec-sub">Each example asks different questions, offers different choices and ends with a different result.</p>
+    <p class="sec-sub">Each example asks different questions, collects different details and ends with a different result.</p>
+    <p class="skip-demo-row"><a class="skip-demo" href="#how">Skip demonstration</a></p>
   </div>
 
-  <div class="biz-select" role="group" aria-labelledby="biz-label">
-    <p id="biz-label" class="mono-cap">Business type</p>
-    <div class="biz-row">
-      <button type="button" class="biz" data-biz="salon" aria-pressed="false"><span class="biz-n">01</span>Salon</button>
-      <button type="button" class="biz" data-biz="hvac" aria-pressed="true"><span class="biz-n">02</span>HVAC</button>
-      <button type="button" class="biz" data-biz="plumbing" aria-pressed="false"><span class="biz-n">03</span>Plumbing</button>
-      <button type="button" class="biz" data-biz="restaurant" aria-pressed="false"><span class="biz-n">04</span>Restaurant</button>
-    </div>
-  </div>
-
-  <div class="stage" id="stage" data-biz="hvac" data-scn="hvac">
-    <div class="stage-bar">
-      <p class="demo-label">Interactive demo · Sample data</p>
-      <div class="sub-select" role="group" aria-label="Restaurant example" hidden>
-        <button type="button" class="sub" data-scn="restaurant-reserve" aria-pressed="true">Reserve a table</button>
-        <button type="button" class="sub" data-scn="restaurant-order" aria-pressed="false">Place a pickup order</button>
+  <div class="story-bar" id="story-bar">
+    <div class="biz-select" role="group" aria-labelledby="biz-label">
+      <p id="biz-label" class="mono-cap">Business type</p>
+      <div class="biz-row">
+        <button type="button" class="biz" data-biz="salon" aria-pressed="false">Salon</button>
+        <button type="button" class="biz" data-biz="hvac" aria-pressed="true">HVAC</button>
+        <button type="button" class="biz" data-biz="plumbing" aria-pressed="false">Plumbing</button>
+        <button type="button" class="biz" data-biz="restaurant" aria-pressed="false">Restaurant</button>
       </div>
     </div>
+    <div class="sub-select" role="group" aria-label="Restaurant example" hidden>
+      <button type="button" class="sub" data-scn="restaurant-reserve" aria-pressed="true">Reserve a table</button>
+      <button type="button" class="sub" data-scn="restaurant-order" aria-pressed="false">Place a pickup order</button>
+    </div>
+    <p class="demo-label">Interactive demo · Sample data</p>
+  </div>
 
-    <!-- Shared centre: receiver and call state -->
-    <div class="stage-center">
-      <div class="center-art" aria-hidden="true">
+  <div class="stage" id="stage" data-scn="hvac">
+
+    <!-- Shared rail: receiver, scroll-driven voice line, chapter links -->
+    <div class="rail">
+      <div class="rail-art" aria-hidden="true">
         <img src="assets/img/receiver-560.webp" width="560" height="1244" alt="" loading="lazy" decoding="async">
         <svg class="wave" viewBox="0 0 200 60" preserveAspectRatio="none" focusable="false"><line class="wave-base" x1="0" y1="30" x2="200" y2="30"/><path class="wave-line" d="M0 30 H200"/></svg>
       </div>
-      <p class="call-state"><span class="call-line">Incoming call</span><span class="call-step" id="call-step">Press Play example or Next step.</span></p>
-      <div class="controls" role="group" aria-label="Demo controls">
-        <button type="button" class="ctl ctl-play" data-act="play">Play example</button>
-        <button type="button" class="ctl" data-act="pause" disabled>Pause</button>
-        <button type="button" class="ctl" data-act="restart">Restart</button>
-        <button type="button" class="ctl" data-act="next">Next step</button>
-      </div>
+      <p class="cue">Scroll to follow the call.</p>
+      <nav class="ch-nav" aria-label="Call chapters"><ol></ol></nav>
     </div>
 
     <!-- ===== SALON ===== -->
@@ -100,50 +96,82 @@
       <header class="scn-head">
         <h3 id="t-salon">Salon <span>· Book an appointment</span></h3>
         <p class="scn-status"><span class="chip">Proposed configuration</span></p>
-        <ol class="flow"><li>Service</li><li>Preferred date</li><li>Staff preference</li><li>Available times</li><li>Appointment summary</li></ol>
-        <p class="scn-why">The receptionist matches the request to the salon's service list, so the appointment length comes from the service instead of a fixed slot.</p>
       </header>
-      <div class="convo">
-        <p class="col-cap">Conversation</p>
-        <ol class="msgs">
-          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>Hi, I'd like to book a gel manicure on Friday afternoon.</p></li>
-          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Happy to help. A gel manicure takes about 60 minutes. Is that this Friday?</p></li>
-          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>Yes, this Friday, any time after noon.</p></li>
-          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Do you have a preferred nail technician, or is anyone available fine?</p></li>
-          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>Maya, if she's free.</p></li>
-          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>Maya has two 60-minute openings on Friday afternoon: 1:30 PM or 3:45 PM. Which works better?</p></li>
-          <li class="msg caller" data-step="5"><span class="who">Caller</span><p><span data-bind="salon-time">3:45 PM</span>, please. My name is Riley.</p></li>
-          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Thanks, Riley. I have a gel manicure with Maya on Friday at <span data-bind="salon-time">3:45 PM</span>.</p></li>
-        </ol>
-      </div>
-      <div class="outcome">
-        <p class="col-cap">Appointment</p>
-        <div class="menu-ref" data-step="1">
-          <p class="mono-cap">Sample service list</p>
-          <ul class="svc">
-            <li class="is-match"><span>Gel manicure</span><span>60 min</span></li>
-            <li><span>Classic manicure</span><span>30 min</span></li>
-            <li><span>Gel removal and new set</span><span>75 min</span></li>
-            <li><span>Pedicure</span><span>45 min</span></li>
-          </ul>
-        </div>
+      <ol class="chapters">
+        <li class="ch" id="salon-1">
+          <h4 class="ch-label"><span class="ch-n">01</span>Service request</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>Hi, I'd like to book a <mark data-f="service">gel manicure</mark> on Friday afternoon.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Happy to help. A gel manicure takes <mark data-f="service">about 60 minutes</mark>. Is that this Friday?</p></li>
+          </ol>
+          <div class="menu-ref">
+            <p class="mono-cap">Sample service list</p>
+            <ul class="svc">
+              <li class="is-match"><span>Gel manicure</span><span>60 min</span></li>
+              <li><span>Classic manicure</span><span>30 min</span></li>
+              <li><span>Gel removal and new set</span><span>75 min</span></li>
+              <li><span>Pedicure</span><span>45 min</span></li>
+            </ul>
+          </div>
+          <dl class="got"><div><dt>Service</dt><dd>Gel manicure · 60 min</dd></div></dl>
+          <p class="why">Matching the request to the service list sets the right length, so a 75-minute set never lands in a 30-minute gap.</p>
+        </li>
+        <li class="ch" id="salon-2">
+          <h4 class="ch-label"><span class="ch-n">02</span>Preferred date</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>Yes, <mark data-f="date">this Friday, any time after noon</mark>.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Friday after 12, got it. Do you have a preferred nail technician?</p></li>
+          </ol>
+          <dl class="got"><div><dt>Preferred date</dt><dd>Friday, after 12:00 PM</dd></div></dl>
+          <p class="why">A time window gives the receptionist room to find a real opening instead of a yes-or-no on one time.</p>
+        </li>
+        <li class="ch" id="salon-3">
+          <h4 class="ch-label"><span class="ch-n">03</span>Staff preference</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="staff">Maya</mark>, if she's free.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>I'll look at Maya's openings first.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Staff preference</dt><dd>Maya</dd></div></dl>
+          <p class="why">Regular clients often ask for the same person. Staff rules decide who can perform which service.</p>
+        </li>
+        <li class="ch" id="salon-4">
+          <h4 class="ch-label"><span class="ch-n">04</span>Sample availability</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>Maya has two 60-minute openings on Friday afternoon: 1:30 PM or 3:45 PM.</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="time"><span data-bind="salon-time">3:45 PM</span></mark>, please.</p></li>
+          </ol>
+          <fieldset class="choices">
+            <legend>Openings with Maya, Friday (sample)</legend>
+            <label class="choice"><input type="radio" name="salon-time" value="1330" data-label="1:30 PM"><span>1:30 PM</span></label>
+            <label class="choice"><input type="radio" name="salon-time" value="1545" data-label="3:45 PM" checked><span>3:45 PM</span></label>
+          </fieldset>
+          <dl class="got"><div><dt>Time</dt><dd><span data-bind="salon-time">3:45 PM</span> · 60 min</dd></div></dl>
+          <p class="why">Only openings long enough for the service are offered. These times are sample data.</p>
+        </li>
+        <li class="ch" id="salon-5">
+          <h4 class="ch-label"><span class="ch-n">05</span>Sample appointment summary</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>My name is <mark data-f="name">Riley</mark>.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Thanks, Riley. That's a gel manicure with Maya on Friday at <span data-bind="salon-time">3:45 PM</span>.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Customer</dt><dd>Riley</dd></div></dl>
+          <p class="why">The salon gets a complete request instead of a voicemail.</p>
+        </li>
+      </ol>
+      <aside class="summary" aria-labelledby="sum-salon">
+        <p class="col-cap" id="sum-salon">Appointment summary · sample</p>
         <dl class="rec">
-          <div data-step="1"><dt>Service</dt><dd>Gel manicure · 60 min</dd></div>
-          <div data-step="2"><dt>Preferred date</dt><dd>Friday, after 12:00 PM</dd></div>
-          <div data-step="3"><dt>Staff preference</dt><dd>Maya</dd></div>
-          <div data-step="5"><dt>Time</dt><dd><span data-bind="salon-time">3:45 PM</span> · 60 min</dd></div>
-          <div data-step="5"><dt>Customer</dt><dd>Riley</dd></div>
+          <div data-step="1" data-f="service"><dt>Service</dt><dd>Gel manicure · 60 min</dd></div>
+          <div data-step="2" data-f="date"><dt>Preferred date</dt><dd>Friday, after 12:00 PM</dd></div>
+          <div data-step="3" data-f="staff"><dt>Staff</dt><dd>Maya</dd></div>
+          <div data-step="4" data-f="time"><dt>Time</dt><dd>Friday · <span data-bind="salon-time">3:45 PM</span> · 60 min</dd></div>
+          <div data-step="5" data-f="name"><dt>Customer</dt><dd>Riley</dd></div>
         </dl>
-        <fieldset class="choices" data-step="4">
-          <legend>Openings with Maya, Friday (sample)</legend>
-          <label class="choice"><input type="radio" name="salon-time" value="1330" data-label="1:30 PM"><span>1:30 PM</span></label>
-          <label class="choice"><input type="radio" name="salon-time" value="1545" data-label="3:45 PM" checked><span>3:45 PM</span></label>
-        </fieldset>
         <div class="result" data-step="5">
-          <p class="result-h">Appointment summary ready</p>
-          <p class="qual">Sample data. A live setup would check and book the salon's own calendar. This demo books nothing.</p>
+          <p class="result-h">Sample appointment summary</p>
+          <p class="qual">Nothing is booked. A live setup would check and book the salon's own calendar.</p>
         </div>
-      </div>
+      </aside>
     </article>
 
     <!-- ===== HVAC ===== -->
@@ -151,44 +179,79 @@
       <header class="scn-head">
         <h3 id="t-hvac">HVAC <span>· Service request</span></h3>
         <p class="scn-status"><span class="chip chip-dev">Workflow in development</span></p>
-        <ol class="flow"><li>Reported problem</li><li>Service location</li><li>Urgency</li><li>Available appointment</li><li>Service request summary</li></ol>
-        <p class="scn-why">The receptionist narrows down the problem and checks urgency before offering times, so the technician arrives knowing what was reported.</p>
       </header>
-      <div class="convo">
-        <p class="col-cap">Conversation</p>
-        <ol class="msgs">
-          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>My air conditioner is running, but it isn't cooling.</p></li>
-          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>I can help with that. Is air coming out of the vents, and is it warm?</p></li>
-          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>It's blowing, just warm. The thermostat says 84.</p></li>
-          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Thanks. What's the service address?</p></li>
-          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>1420 Sample Street, Los Angeles.</p></li>
-          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>Is anyone in the home at higher risk from the heat, like an infant or an older adult?</p></li>
-          <li class="msg caller" data-step="4"><span class="who">Caller</span><p>No, but it's getting hot upstairs.</p></li>
-          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>Tomorrow I have 9:00 AM, 11:30 AM or 2:00 PM for a diagnostic visit.</p></li>
-          <li class="msg caller" data-step="5"><span class="who">Caller</span><p><span data-bind="hvac-time">11:30 AM</span> works. It's Jordan.</p></li>
-          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>You're down for <span data-bind="hvac-time">11:30 AM</span> tomorrow, Jordan.</p></li>
-        </ol>
-      </div>
-      <div class="outcome">
-        <p class="col-cap">Service request</p>
+      <ol class="chapters">
+        <li class="ch" id="hvac-1">
+          <h4 class="ch-label"><span class="ch-n">01</span>Reported issue</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>My air conditioner is running, but it isn't cooling.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>I can help with that. Is air coming out of the vents, and is it warm?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p>It's <mark data-f="issue">blowing, just warm</mark>. The thermostat says <mark data-f="issue">84</mark>.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Reported issue</dt><dd>Runs but blows warm air; thermostat at 84°F</dd></div></dl>
+          <p class="why">A clear description helps the technician arrive with the right parts on the first visit.</p>
+        </li>
+        <li class="ch" id="hvac-2">
+          <h4 class="ch-label"><span class="ch-n">02</span>Service location</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>What's the service address?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="loc">1420 Sample Street, Los Angeles</mark>.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Location</dt><dd>1420 Sample Street, Los Angeles</dd></div></dl>
+          <p class="why">The address confirms the job is inside the service area before any time is offered.</p>
+        </li>
+        <li class="ch" id="hvac-3">
+          <h4 class="ch-label"><span class="ch-n">03</span>Urgency and details</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>Is anyone in the home at higher risk from the heat, like an infant or an older adult?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="urg">No, but it's getting hot upstairs.</mark> The unit is <mark data-f="detail">about twelve years old</mark>.</p></li>
+          </ol>
+          <dl class="got">
+            <div class="is-urgency"><dt>Urgency</dt><dd>Standard; no heat-vulnerable occupants</dd></div>
+            <div><dt>Details</dt><dd>Unit about 12 years old</dd></div>
+          </dl>
+          <p class="why">Urgency questions decide how soon the visit should be. Unusual situations go to your team under rules you set.</p>
+        </li>
+        <li class="ch" id="hvac-4">
+          <h4 class="ch-label"><span class="ch-n">04</span>Preferred visit time</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>Tomorrow I have 9:00 AM, 11:30 AM or 2:00 PM for a diagnostic visit.</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="time"><span data-bind="hvac-time">11:30 AM</span></mark> works.</p></li>
+          </ol>
+          <fieldset class="choices">
+            <legend>Open diagnostic visits tomorrow (sample)</legend>
+            <label class="choice"><input type="radio" name="hvac-time" value="0900" data-label="9:00 AM"><span>9:00 AM</span></label>
+            <label class="choice"><input type="radio" name="hvac-time" value="1130" data-label="11:30 AM" checked><span>11:30 AM</span></label>
+            <label class="choice"><input type="radio" name="hvac-time" value="1400" data-label="2:00 PM"><span>2:00 PM</span></label>
+          </fieldset>
+          <dl class="got"><div><dt>Visit</dt><dd>Tomorrow · <span data-bind="hvac-time">11:30 AM</span> · 60 min diagnostic</dd></div></dl>
+          <p class="why">In the HVAC workflow under development, openings come from the connected calendar. Here they are sample data.</p>
+        </li>
+        <li class="ch" id="hvac-5">
+          <h4 class="ch-label"><span class="ch-n">05</span>Sample service-request summary</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>It's <mark data-f="name">Jordan</mark>.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Thanks, Jordan. I have a diagnostic visit for you tomorrow at <span data-bind="hvac-time">11:30 AM</span>.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Customer</dt><dd>Jordan</dd></div></dl>
+          <p class="why">Your team starts with an organized request, not a message to decode.</p>
+        </li>
+      </ol>
+      <aside class="summary" aria-labelledby="sum-hvac">
+        <p class="col-cap" id="sum-hvac">HVAC service request · sample</p>
         <dl class="rec">
-          <div data-step="2"><dt>Reported problem</dt><dd>System runs, blowing warm air; thermostat at 84°F</dd></div>
-          <div data-step="3"><dt>Service location</dt><dd>1420 Sample Street, Los Angeles</dd></div>
-          <div data-step="4" class="is-urgency"><dt>Urgency</dt><dd>Standard. No heat-vulnerable occupants; caller wants service soon</dd></div>
-          <div data-step="5"><dt>Appointment</dt><dd>Tomorrow · <span data-bind="hvac-time">11:30 AM</span> · 60 min diagnostic</dd></div>
-          <div data-step="5"><dt>Customer</dt><dd>Jordan</dd></div>
+          <div data-step="1" data-f="issue"><dt>Issue</dt><dd>Runs but blows warm air; thermostat at 84°F</dd></div>
+          <div data-step="2" data-f="loc"><dt>Location</dt><dd>1420 Sample Street, Los Angeles</dd></div>
+          <div data-step="3" data-f="urg" class="is-urgency"><dt>Urgency</dt><dd>Standard; no heat-vulnerable occupants</dd></div>
+          <div data-step="3" data-f="detail"><dt>Details</dt><dd>Unit about 12 years old</dd></div>
+          <div data-step="4" data-f="time"><dt>Visit</dt><dd>Tomorrow · <span data-bind="hvac-time">11:30 AM</span> · 60 min</dd></div>
+          <div data-step="5" data-f="name"><dt>Customer</dt><dd>Jordan</dd></div>
         </dl>
-        <fieldset class="choices" data-step="4">
-          <legend>Open diagnostic visits tomorrow (sample)</legend>
-          <label class="choice"><input type="radio" name="hvac-time" value="0900" data-label="9:00 AM"><span>9:00 AM</span></label>
-          <label class="choice"><input type="radio" name="hvac-time" value="1130" data-label="11:30 AM" checked><span>11:30 AM</span></label>
-          <label class="choice"><input type="radio" name="hvac-time" value="1400" data-label="2:00 PM"><span>2:00 PM</span></label>
-        </fieldset>
         <div class="result" data-step="5">
-          <p class="result-h">Service request summary ready</p>
-          <p class="qual">In the HVAC workflow under development, this step checks the calendar, creates the event and sends an email confirmation. This demo creates and sends nothing.</p>
+          <p class="result-h">Sample service-request summary</p>
+          <p class="qual">In the HVAC workflow under development, this step creates the calendar event and sends an email confirmation. This demo creates and sends nothing.</p>
         </div>
-      </div>
+      </aside>
     </article>
 
     <!-- ===== PLUMBING ===== -->
@@ -196,43 +259,78 @@
       <header class="scn-head">
         <h3 id="t-plumbing">Plumbing <span>· Same-day request</span></h3>
         <p class="scn-status"><span class="chip">Proposed configuration</span></p>
-        <ol class="flow"><li>Issue description</li><li>Location</li><li>Urgency</li><li>Scheduling or callback</li><li>Request summary</li></ol>
-        <p class="scn-why">The receptionist checks whether the leak is contained before offering options. It records a request for the office to confirm and does not dispatch anyone.</p>
       </header>
-      <div class="convo">
-        <p class="col-cap">Conversation</p>
-        <ol class="msgs">
-          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>There's a leak under my kitchen sink. Can someone come today?</p></li>
-          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Let's get that started. Is water still leaking, and were you able to close the valve under the sink?</p></li>
-          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>It was dripping steadily. I closed the valve and it slowed down.</p></li>
-          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Good. What's the address?</p></li>
-          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>88 Sample Lane, Glendale.</p></li>
-          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>Is there water on the floor, or near any outlets or appliances?</p></li>
-          <li class="msg caller" data-step="4"><span class="who">Caller</span><p>Just a small puddle in the cabinet. Nothing electrical.</p></li>
-          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>Today's openings are limited. I can request the 4:00 to 6:00 PM window, or ask the office to call you back.</p></li>
-          <li class="msg caller" data-step="5"><span class="who">Caller</span><p>Please request <span data-bind="plumb-opt">the 4:00–6:00 PM window</span>. I'm Sam.</p></li>
-          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Thanks, Sam. I've passed that to the office. They'll confirm with you before anyone is sent.</p></li>
-        </ol>
-      </div>
-      <div class="outcome">
-        <p class="col-cap">Service request</p>
+      <ol class="chapters">
+        <li class="ch" id="plumbing-1">
+          <h4 class="ch-label"><span class="ch-n">01</span>Reported problem</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>There's a <mark data-f="prob">leak under my kitchen sink</mark>. Can someone come today?</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Let's get that started. Is it still leaking, and were you able to close the valve under the sink?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p>It was dripping steadily. <mark data-f="prob">I closed the valve and it slowed down.</mark></p></li>
+          </ol>
+          <dl class="got"><div><dt>Problem</dt><dd>Steady drip under kitchen sink; valve closed, leak slowed</dd></div></dl>
+          <p class="why">Knowing the water is shut off changes how urgent the job is.</p>
+        </li>
+        <li class="ch" id="plumbing-2">
+          <h4 class="ch-label"><span class="ch-n">02</span>Location</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>What's the address?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="loc">88 Sample Lane, Glendale</mark>.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Location</dt><dd>88 Sample Lane, Glendale</dd></div></dl>
+          <p class="why">The address is checked against the service area before timing is discussed.</p>
+        </li>
+        <li class="ch" id="plumbing-3">
+          <h4 class="ch-label"><span class="ch-n">03</span>Urgency and access</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>Is there water near any outlets or appliances? And how will the plumber get in?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="urg">Just a small puddle in the cabinet.</mark> <mark data-f="access">I'm home all afternoon, and there's street parking.</mark></p></li>
+          </ol>
+          <dl class="got">
+            <div class="is-urgency"><dt>Urgency</dt><dd>Same-day request; contained, no electrical risk reported</dd></div>
+            <div><dt>Access</dt><dd>Caller home all afternoon; street parking</dd></div>
+          </dl>
+          <p class="why">Access details prevent a wasted trip, and the urgency answer tells the office how to prioritize.</p>
+        </li>
+        <li class="ch" id="plumbing-4">
+          <h4 class="ch-label"><span class="ch-n">04</span>Requested timing</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>Today's openings are limited. I can request the 4:00 to 6:00 PM window, or ask the office to call you back.</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p>Please request <mark data-f="time"><span data-bind="plumb-opt">the 4:00–6:00 PM window</span></mark>.</p></li>
+          </ol>
+          <fieldset class="choices">
+            <legend>Options offered today (sample)</legend>
+            <label class="choice"><input type="radio" name="plumb-opt" value="window" data-label="the 4:00–6:00 PM window" checked><span>4:00–6:00 PM window</span></label>
+            <label class="choice"><input type="radio" name="plumb-opt" value="callback" data-label="a callback from the office"><span>Office callback</span></label>
+          </fieldset>
+          <dl class="got"><div><dt>Requested</dt><dd><span data-bind="plumb-opt">the 4:00–6:00 PM window</span></dd></div></dl>
+          <p class="why">The receptionist records a request. The office confirms it, and no one is dispatched automatically.</p>
+        </li>
+        <li class="ch" id="plumbing-5">
+          <h4 class="ch-label"><span class="ch-n">05</span>Sample service-request summary</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>I'm <mark data-f="name">Sam</mark>.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Thanks, Sam. I've passed that to the office. They'll confirm with you before anyone is sent.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Customer</dt><dd>Sam</dd></div></dl>
+          <p class="why">The office gets everything it needs to call back and confirm.</p>
+        </li>
+      </ol>
+      <aside class="summary" aria-labelledby="sum-plumbing">
+        <p class="col-cap" id="sum-plumbing">Plumbing request · sample</p>
         <dl class="rec">
-          <div data-step="2"><dt>Issue</dt><dd>Steady drip under kitchen sink; shutoff valve closed, leak slowed</dd></div>
-          <div data-step="3"><dt>Location</dt><dd>88 Sample Lane, Glendale</dd></div>
-          <div data-step="4" class="is-urgency"><dt>Urgency</dt><dd>Same-day request. Contained after shutoff; no electrical risk reported</dd></div>
-          <div data-step="5"><dt>Requested</dt><dd><span data-bind="plumb-opt">the 4:00–6:00 PM window</span></dd></div>
-          <div data-step="5"><dt>Customer</dt><dd>Sam</dd></div>
+          <div data-step="1" data-f="prob"><dt>Problem</dt><dd>Steady drip under kitchen sink; valve closed, leak slowed</dd></div>
+          <div data-step="2" data-f="loc"><dt>Location</dt><dd>88 Sample Lane, Glendale</dd></div>
+          <div data-step="3" data-f="urg" class="is-urgency"><dt>Urgency</dt><dd>Same-day; contained, no electrical risk</dd></div>
+          <div data-step="3" data-f="access"><dt>Access</dt><dd>Home all afternoon; street parking</dd></div>
+          <div data-step="4" data-f="time"><dt>Requested</dt><dd><span data-bind="plumb-opt">the 4:00–6:00 PM window</span></dd></div>
+          <div data-step="5" data-f="name"><dt>Customer</dt><dd>Sam</dd></div>
         </dl>
-        <fieldset class="choices" data-step="4">
-          <legend>Options offered today (sample)</legend>
-          <label class="choice"><input type="radio" name="plumb-opt" value="window" data-label="the 4:00–6:00 PM window" checked><span>4:00–6:00 PM window</span></label>
-          <label class="choice"><input type="radio" name="plumb-opt" value="callback" data-label="a callback from the office"><span>Office callback</span></label>
-        </fieldset>
         <div class="result" data-step="5">
-          <p class="result-h">Request sent for office confirmation</p>
-          <p class="qual">Proposed configuration. No technician is dispatched. A live transfer to staff would be a separate setup and isn't built yet.</p>
+          <p class="result-h">Sample service-request summary</p>
+          <p class="qual">Awaiting office confirmation. No technician is dispatched. A live transfer to staff would be a separate setup and isn't built yet.</p>
         </div>
-      </div>
+      </aside>
     </article>
 
     <!-- ===== RESTAURANT: RESERVATION ===== -->
@@ -240,51 +338,84 @@
       <header class="scn-head">
         <h3 id="t-res">Restaurant <span>· Reserve a table</span></h3>
         <p class="scn-status"><span class="chip">Proposed configuration</span></p>
-        <ol class="flow"><li>Party size</li><li>Date and time</li><li>Availability</li><li>Caller's choice</li><li>Reservation summary</li></ol>
-        <p class="scn-why">A table depends on capacity rules, not an empty calendar. The receptionist checks those rules and offers nearby times when the requested one is full.</p>
       </header>
-      <div class="convo">
-        <p class="col-cap">Conversation</p>
-        <ol class="msgs">
-          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>Can I reserve a table for four tomorrow at seven?</p></li>
-          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Sure. That's four guests. Is it all adults, and do you need any seating accommodations?</p></li>
-          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>Four adults, and indoors is fine.</p></li>
-          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Let me check tomorrow at 7:00 PM for four, indoors.</p></li>
-          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>7:00 is full for a party of four. I can offer 6:30 PM or 8:15 PM.</p></li>
-          <li class="msg caller" data-step="4"><span class="who">Caller</span><p><span data-bind="res-time">8:15 PM</span> is good. The name is Alex.</p></li>
-          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Table for four, tomorrow at <span data-bind="res-time">8:15 PM</span>, under Alex. Is that right?</p></li>
-          <li class="msg caller" data-step="5"><span class="who">Caller</span><p>That's right. Thank you.</p></li>
-        </ol>
-      </div>
-      <div class="outcome">
-        <p class="col-cap">Reservation</p>
+      <ol class="chapters">
+        <li class="ch" id="reserve-1">
+          <h4 class="ch-label"><span class="ch-n">01</span>Party size</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>Can I reserve a table for four tomorrow at seven?</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Happy to check. Is that a party of four?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p>Yes, <mark data-f="party">four adults</mark>.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Party size</dt><dd>4 adults</dd></div></dl>
+          <p class="why">Party size decides which tables can work at all.</p>
+        </li>
+        <li class="ch" id="reserve-2">
+          <h4 class="ch-label"><span class="ch-n">02</span>Requested date and time</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>And that's tomorrow at 7:00 PM?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p>Yes, <mark data-f="when">tomorrow, around seven</mark>.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Requested</dt><dd>Tomorrow · 7:00 PM</dd></div></dl>
+          <p class="why">The requested time is the starting point, not a promise.</p>
+        </li>
+        <li class="ch" id="reserve-3">
+          <h4 class="ch-label"><span class="ch-n">03</span>Seating preferences</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>Any seating preference or accessibility needs?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="seat">Indoors, please.</mark> No other needs.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Seating</dt><dd>Indoors</dd></div></dl>
+          <p class="why">Preferences narrow which tables the receptionist can offer.</p>
+        </li>
+        <li class="ch" id="reserve-4">
+          <h4 class="ch-label"><span class="ch-n">04</span>Sample availability</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>7:00 is full for four indoors. I can offer 6:30 PM or 8:15 PM.</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="time"><span data-bind="res-time">8:15 PM</span></mark> is good.</p></li>
+          </ol>
+          <div class="capacity">
+            <p class="mono-cap">Capacity check (sample rules)</p>
+            <ul class="cap-rows">
+              <li class="full"><span>7:00 PM</span><span>4-tops full</span></li>
+              <li><span>6:30 PM</span><span>1 four-top free</span></li>
+              <li><span>8:15 PM</span><span>2 four-tops free</span></li>
+            </ul>
+            <p class="cap-rule">Rules used: 90-minute seatings, five four-person tables, no more than 16 arriving guests per 15 minutes.</p>
+          </div>
+          <fieldset class="choices">
+            <legend>Times offered (sample)</legend>
+            <label class="choice"><input type="radio" name="res-time" value="1830" data-label="6:30 PM"><span>6:30 PM</span></label>
+            <label class="choice"><input type="radio" name="res-time" value="2015" data-label="8:15 PM" checked><span>8:15 PM</span></label>
+          </fieldset>
+          <dl class="got"><div><dt>Time</dt><dd>Tomorrow · <span data-bind="res-time">8:15 PM</span></dd></div></dl>
+          <p class="why">Availability comes from capacity rules, not from an empty calendar slot.</p>
+        </li>
+        <li class="ch" id="reserve-5">
+          <h4 class="ch-label"><span class="ch-n">05</span>Sample reservation summary</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>The name is <mark data-f="name">Alex</mark>.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Table for four, indoors, tomorrow at <span data-bind="res-time">8:15 PM</span> under Alex. Is that right?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p>That's right. Thank you.</p></li>
+          </ol>
+          <dl class="got"><div><dt>Name</dt><dd>Alex</dd></div></dl>
+          <p class="why">Reading the details back catches mistakes before the guest arrives.</p>
+        </li>
+      </ol>
+      <aside class="summary" aria-labelledby="sum-res">
+        <p class="col-cap" id="sum-res">Reservation · sample</p>
         <dl class="rec">
-          <div data-step="1"><dt>Party size</dt><dd>4 adults</dd></div>
-          <div data-step="2"><dt>Requested</dt><dd>Tomorrow · 7:00 PM · indoors</dd></div>
-        </dl>
-        <div class="capacity" data-step="3">
-          <p class="mono-cap">Capacity check (sample rules)</p>
-          <ul class="cap-rows">
-            <li class="full"><span>7:00 PM</span><span>4-tops full</span></li>
-            <li><span>6:30 PM</span><span>1 four-top free</span></li>
-            <li><span>8:15 PM</span><span>2 four-tops free</span></li>
-          </ul>
-          <p class="cap-rule">Rules used: 90-minute seatings, five four-person tables, no more than 16 arriving guests per 15 minutes.</p>
-        </div>
-        <fieldset class="choices" data-step="3">
-          <legend>Times offered (sample)</legend>
-          <label class="choice"><input type="radio" name="res-time" value="1830" data-label="6:30 PM"><span>6:30 PM</span></label>
-          <label class="choice"><input type="radio" name="res-time" value="2015" data-label="8:15 PM" checked><span>8:15 PM</span></label>
-        </fieldset>
-        <dl class="rec">
-          <div data-step="4"><dt>Time</dt><dd>Tomorrow · <span data-bind="res-time">8:15 PM</span></dd></div>
-          <div data-step="4"><dt>Name</dt><dd>Alex</dd></div>
+          <div data-step="1" data-f="party"><dt>Party</dt><dd>4 adults</dd></div>
+          <div data-step="2" data-f="when"><dt>Requested</dt><dd>Tomorrow · 7:00 PM</dd></div>
+          <div data-step="3" data-f="seat"><dt>Seating</dt><dd>Indoors</dd></div>
+          <div data-step="4" data-f="time"><dt>Time</dt><dd>Tomorrow · <span data-bind="res-time">8:15 PM</span></dd></div>
+          <div data-step="5" data-f="name"><dt>Name</dt><dd>Alex</dd></div>
         </dl>
         <div class="result" data-step="5">
-          <p class="result-h">Reservation summary read back</p>
-          <p class="qual">Sample data. A live setup would hold the table in the restaurant's reservation system once that system is chosen and connected.</p>
+          <p class="result-h">Sample reservation summary</p>
+          <p class="qual">Nothing is held or booked. A live setup would use the restaurant's reservation system once it's chosen and connected.</p>
         </div>
-      </div>
+      </aside>
     </article>
 
     <!-- ===== RESTAURANT: PICKUP ORDER ===== -->
@@ -292,66 +423,106 @@
       <header class="scn-head">
         <h3 id="t-ord">Restaurant <span>· Place a pickup order</span></h3>
         <p class="scn-status"><span class="chip">Proposed configuration</span></p>
-        <ol class="flow"><li>Menu</li><li>Items and quantities</li><li>Allowed changes</li><li>Read-back</li><li>Pickup request</li></ol>
-        <p class="scn-why">The receptionist takes items only from the menu it's given, accepts only the changes that menu allows and reads the order back before passing it on.</p>
       </header>
-      <div class="convo">
-        <p class="col-cap">Conversation</p>
-        <ol class="msgs">
-          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>I'd like to place an order for pickup.</p></li>
-          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Of course. What would you like?</p></li>
-          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>Two margherita pizzas and one Caesar salad.</p></li>
-          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Any changes? The pizza comes with a gluten-free crust option, and the salad can have dressing on the side.</p></li>
-          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>Dressing on the side. And can you add chicken to the salad?</p></li>
-          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>Chicken isn't an option on this menu, so I can't add it. I've noted the dressing on the side.</p></li>
-          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>That's two margherita pizzas and one Caesar salad with dressing on the side. Is that right?</p></li>
-          <li class="msg caller" data-step="4"><span class="who">Caller</span><p>Yes. The name is Casey.</p></li>
-          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Thanks, Casey. I've passed your order request to the restaurant, and they'll confirm the pickup time.</p></li>
-        </ol>
-      </div>
-      <div class="outcome">
-        <p class="col-cap">Pickup order</p>
-        <div class="menu-ref" data-step="1">
-          <p class="mono-cap">Sample menu · fictional</p>
-          <ul class="svc">
-            <li class="is-match"><span>Margherita pizza</span><span>$14.00</span></li>
-            <li class="is-match"><span>Caesar salad</span><span>$9.00</span></li>
-            <li><span>Garlic knots (6)</span><span>$6.00</span></li>
-            <li><span>Lemonade</span><span>$4.00</span></li>
-          </ul>
-          <p class="cap-rule">Allowed changes: gluten-free crust (+$3.00), dressing on the side, no croutons.</p>
-        </div>
+      <ol class="chapters">
+        <li class="ch" id="order-1">
+          <h4 class="ch-label"><span class="ch-n">01</span>Requested items</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p>I'd like to place an order for pickup: <mark data-f="items">margherita pizzas and a Caesar salad</mark>.</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Sure. How many margherita pizzas?</p></li>
+          </ol>
+          <div class="menu-ref">
+            <p class="mono-cap">Sample menu · fictional</p>
+            <ul class="svc">
+              <li class="is-match"><span>Margherita pizza</span><span>$14.00</span></li>
+              <li class="is-match"><span>Caesar salad</span><span>$9.00</span></li>
+              <li><span>Garlic knots (6)</span><span>$6.00</span></li>
+              <li><span>Lemonade</span><span>$4.00</span></li>
+            </ul>
+            <p class="cap-rule">Allowed changes: gluten-free crust (+$3.00), dressing on the side, no croutons.</p>
+          </div>
+          <dl class="got"><div><dt>Items</dt><dd>Margherita pizza, Caesar salad</dd></div></dl>
+          <p class="why">Items are matched to the menu the restaurant provides, so nothing off-menu slips through.</p>
+        </li>
+        <li class="ch" id="order-2">
+          <h4 class="ch-label"><span class="ch-n">02</span>Quantities and modifiers</h4>
+          <ol class="msgs">
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="qty">Two pizzas and one salad.</mark> <mark data-f="mod">Dressing on the side</mark>, and can you <mark data-f="no">add chicken</mark>?</p></li>
+            <li class="msg agent"><span class="who">Receptionist</span><p>Dressing on the side is fine. Chicken isn't an option on this menu, so I can't add it.</p></li>
+          </ol>
+          <dl class="got">
+            <div><dt>Quantities</dt><dd>2 × Margherita pizza, 1 × Caesar salad</dd></div>
+            <div><dt>Changes</dt><dd>Caesar salad: dressing on the side</dd></div>
+            <div class="is-declined"><dt>Not accepted</dt><dd>Add chicken (not on this menu)</dd></div>
+          </dl>
+          <p class="why">Only the changes the kitchen allows are accepted.</p>
+        </li>
+        <li class="ch" id="order-3">
+          <h4 class="ch-label"><span class="ch-n">03</span>Pickup details</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>What name is the order under, and when would you like to pick it up?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="name">Casey</mark>. <mark data-f="pickup">Around 6:30.</mark></p></li>
+          </ol>
+          <dl class="got">
+            <div><dt>Name</dt><dd>Casey</dd></div>
+            <div><dt>Pickup</dt><dd>Requested around 6:30 PM</dd></div>
+          </dl>
+          <p class="why">The requested time is passed on. The restaurant sets the actual pickup time.</p>
+        </li>
+        <li class="ch" id="order-4">
+          <h4 class="ch-label"><span class="ch-n">04</span>Order review</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>That's two margherita pizzas and one Caesar salad with dressing on the side, for Casey around 6:30. Is that right?</p></li>
+            <li class="msg caller"><span class="who">Caller</span><p><mark data-f="review">Yes, that's right.</mark></p></li>
+          </ol>
+          <dl class="got">
+            <div><dt>Review</dt><dd>Read back and confirmed by caller</dd></div>
+            <div><dt>Estimated subtotal</dt><dd>$37.00 before tax (sample prices)</dd></div>
+          </dl>
+          <p class="why">Reading the order back catches mistakes before the kitchen sees them.</p>
+        </li>
+        <li class="ch" id="order-5">
+          <h4 class="ch-label"><span class="ch-n">05</span>Sample order summary</h4>
+          <ol class="msgs">
+            <li class="msg agent"><span class="who">Receptionist</span><p>Thanks, Casey. I've passed your order request to the restaurant, and they'll confirm your pickup time.</p></li>
+          </ol>
+          <p class="why">The restaurant receives a clean, checked order request to accept or adjust.</p>
+        </li>
+      </ol>
+      <aside class="summary" aria-labelledby="sum-ord">
+        <p class="col-cap" id="sum-ord">Pickup order · sample</p>
         <dl class="rec">
-          <div data-step="2"><dt>Items</dt><dd>2 × Margherita pizza<br>1 × Caesar salad</dd></div>
-          <div data-step="3"><dt>Changes</dt><dd>Caesar salad: dressing on the side</dd></div>
-          <div data-step="3" class="is-declined"><dt>Not accepted</dt><dd>Add chicken (not on this menu)</dd></div>
-          <div data-step="4"><dt>Read back</dt><dd>Confirmed by caller · Casey</dd></div>
-          <div data-step="5"><dt>Estimated subtotal</dt><dd>$37.00 before tax (sample prices)</dd></div>
+          <div data-step="1" data-f="items"><dt>Items</dt><dd>Margherita pizza, Caesar salad</dd></div>
+          <div data-step="2" data-f="qty"><dt>Quantities</dt><dd>2 × Margherita, 1 × Caesar</dd></div>
+          <div data-step="2" data-f="mod"><dt>Changes</dt><dd>Dressing on the side</dd></div>
+          <div data-step="2" data-f="no" class="is-declined"><dt>Declined</dt><dd>Add chicken</dd></div>
+          <div data-step="3" data-f="name"><dt>Name</dt><dd>Casey</dd></div>
+          <div data-step="3" data-f="pickup"><dt>Pickup</dt><dd>Requested around 6:30 PM</dd></div>
+          <div data-step="4" data-f="review"><dt>Subtotal</dt><dd>$37.00 before tax (sample)</dd></div>
         </dl>
         <div class="result" data-step="5">
-          <p class="result-h">Pickup request ready for the restaurant</p>
-          <p class="qual">Order intake only. Nothing is paid, sent to a kitchen or entered in a POS, and the restaurant confirms the pickup time.</p>
+          <p class="result-h">Sample order summary</p>
+          <p class="qual">Order intake only. Nothing is paid, sent to a kitchen or entered in a POS. The restaurant confirms the pickup time.</p>
         </div>
-      </div>
+      </aside>
     </article>
-
-    <p class="sr-only" id="demo-live" role="status" aria-live="polite"></p>
   </div>
 </section>
 
 <!-- ============ HOW IT WORKS ============ -->
 <section class="how" id="how" aria-labelledby="how-title">
   <div class="sec-head">
-    <p class="eyebrow">The same six steps</p>
-    <h2 id="how-title" class="sec-title split">Every business, one dependable pattern.</h2>
+    <p class="eyebrow">The pattern behind every call</p>
+    <h2 id="how-title" class="sec-title split">Every story above follows the same six steps.</h2>
+    <p class="sec-sub">The questions change by business. The sequence doesn't.</p>
   </div>
   <ol class="steps6">
-    <li><span class="sn">01</span><h3>Answer the call.</h3><p>Every caller gets a consistent greeting, at any hour the line is configured to answer.</p></li>
-    <li><span class="sn">02</span><h3>Understand the request.</h3><p>The receptionist works out whether the caller wants an appointment, a repair, a table or an order.</p></li>
-    <li><span class="sn">03</span><h3>Collect the required details.</h3><p>It asks only the questions your business needs for that request.</p></li>
-    <li><span class="sn">04</span><h3>Check the connected system when available.</h3><p>Where a calendar or booking tool is connected, it checks real availability before offering options.</p></li>
-    <li><span class="sn">05</span><h3>Confirm the next step.</h3><p>The caller hears exactly what was recorded and what happens next.</p></li>
-    <li><span class="sn">06</span><h3>Pass organized information to the team.</h3><p>Your staff get a clear summary instead of a voicemail to decode.</p></li>
+    <li><span class="sn">01</span><h3>Answer the call.</h3><p>A consistent greeting whenever the line is set to answer.</p></li>
+    <li><span class="sn">02</span><h3>Understand the request.</h3><p>Appointment, repair, table or order.</p></li>
+    <li><span class="sn">03</span><h3>Collect the required details.</h3><p>Only the questions your business needs.</p></li>
+    <li><span class="sn">04</span><h3>Check the connected system when available.</h3><p>Real openings, where a calendar or booking tool is connected.</p></li>
+    <li><span class="sn">05</span><h3>Confirm the next step.</h3><p>The caller hears what was recorded and what happens next.</p></li>
+    <li><span class="sn">06</span><h3>Pass organized information to the team.</h3><p>A clear summary instead of a voicemail.</p></li>
   </ol>
 </section>
 
