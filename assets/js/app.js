@@ -1,88 +1,29 @@
-// HVAC call desk prototype. No dependencies: native IntersectionObserver, rAF and SVG.
-// Every section is complete in the HTML; this file only sequences and mirrors it.
+// Voice Receptionist Automation demo. No dependencies.
+// Every scenario is complete in the HTML; this file shows one at a time and reveals it step by step.
 (function () {
   'use strict';
 
   var doc = document, root = doc.documentElement;
-  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
-  var motion = function () { return root.classList.contains('motion'); };
-  if (mq) {
-    var onMq = function () { root.classList.toggle('motion', !mq.matches); waves.forEach(function (w) { w.draw(0); }); };
-    mq.addEventListener ? mq.addEventListener('change', onMq) : mq.addListener(onMq);
-  }
   var $ = function (s, c) { return (c || doc).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var motion = function () { return root.classList.contains('motion'); };
+  var onMq = function (fn) { if (mq) (mq.addEventListener ? mq.addEventListener('change', fn) : mq.addListener(fn)); };
+  onMq(function () { root.classList.toggle('motion', !mq.matches); });
 
-  /* ---------- waveform ---------- */
-  // Speech-like trace: a few sines under a slowly moving envelope that breaks into "words".
-  function wavePath(w, h, n, amp, t, seed) {
-    var mid = h / 2, d = '';
-    for (var i = 0; i <= n; i++) {
-      var x = (i / n) * w, u = i / n;
-      var edge = Math.sin(Math.PI * u);                                   // calm at both ends
-      var words = 0.55 + 0.45 * Math.sin(u * 19 + t * 1.3 + seed) * Math.sin(u * 7 - t * 0.7);
-      var carrier = Math.sin(u * 140 + t * 9) * 0.6 + Math.sin(u * 61 - t * 6 + seed) * 0.4;
-      var y = mid + carrier * words * edge * amp * mid;
-      d += (i ? ' L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
-    }
-    return d;
-  }
-  var STATE_AMP = { listen: 0.9, route: 0.45, availability: 0.3, book: 0.22, qualify: 0.35, handoff: 0.04 };
-
-  function Wave(svg, opts) {
-    this.path = $('.wave-line', svg);
-    var vb = svg.viewBox.baseVal;
-    this.w = vb.width; this.h = vb.height; this.n = opts.n; this.seed = opts.seed;
-    this.amp = opts.amp; this.target = opts.amp; this.visible = true; this.t = 0;
-  }
-  Wave.prototype.draw = function (dt) {
-    this.amp += (this.target - this.amp) * Math.min(1, dt * 3 || 1);
-    this.t += dt;
-    this.path.setAttribute('d', wavePath(this.w, this.h, this.n, this.amp, this.t, this.seed));
-  };
-  var waves = [];
-  var hero = $('.wave-hero'), stageWave = $('.wave-stage');
-  if (hero) waves.push(new Wave(hero, { n: 220, seed: 0.4, amp: 0.85 }));
-  if (stageWave) waves.push(new Wave(stageWave, { n: 120, seed: 2.1, amp: STATE_AMP.listen }));
-  waves.forEach(function (w) { w.draw(0); });
-
-  // One rAF loop, paused when nothing is on screen, the tab is hidden, or motion is off.
-  var raf = 0, last = 0;
-  function tick(now) {
-    var dt = last ? Math.min(0.05, (now - last) / 1000) : 0; last = now;
-    waves.forEach(function (w) { if (w.visible) w.draw(dt); });
-    raf = requestAnimationFrame(tick);
-  }
-  function runLoop() {
-    var any = waves.some(function (w) { return w.visible; });
-    if (motion() && any && !doc.hidden) { if (!raf) { last = 0; raf = requestAnimationFrame(tick); } }
-    else if (raf) { cancelAnimationFrame(raf); raf = 0; }
-  }
-  if ('IntersectionObserver' in window) {
-    var wio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { waves.forEach(function (w) { if (w.path.ownerSVGElement === e.target) w.visible = e.isIntersecting; }); });
-      runLoop();
-    });
-    waves.forEach(function (w) { wio.observe(w.path.ownerSVGElement); });
-  }
-  doc.addEventListener('visibilitychange', runLoop);
-  if (mq) (mq.addEventListener ? mq.addEventListener('change', runLoop) : mq.addListener(runLoop));
-  runLoop();
-
-  /* ---------- split headings ---------- */
+  /* ---------- split headings: words stagger in, a hidden copy keeps the readable name ---------- */
   $$('.split').forEach(function (h) {
-    var text = h.textContent;
+    var text = h.textContent, i = 0;
     var sr = doc.createElement('span');
-    sr.className = 'sr-only'; sr.textContent = text.replace(/\u00a0/g, ' ');
-    var words = text.split(/ +/), i = 0;
+    sr.className = 'sr-only'; sr.textContent = text;
     h.textContent = '';
     h.appendChild(sr);
-    words.forEach(function (word, k) {
+    text.split(/ +/).forEach(function (word, k, all) {
       var s = doc.createElement('span');
       s.className = 'w'; s.setAttribute('aria-hidden', 'true'); s.style.setProperty('--i', i++);
       s.textContent = word;
       h.appendChild(s);
-      if (k < words.length - 1) h.appendChild(doc.createTextNode(' '));
+      if (k < all.length - 1) h.appendChild(doc.createTextNode(' '));
     });
     h.classList.add('is-split');
   });
@@ -102,162 +43,163 @@
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && list.classList.contains('open')) { setNav(false); toggle.focus(); } });
   }
 
-  /* ---------- stage: mirrors the chapter in view ---------- */
-  var stage = $('.stage');
-  var chapters = $$('.chapter');
-  var phaseEl = $('.stage-phase'), clockEl = $('.stage-clock');
-  var navLinks = $$('.stage-nav a');
-  var PHASE = { listen: 'Listen', route: 'Route', availability: 'Check availability', book: 'Book', qualify: 'Qualify', handoff: 'Handoff' };
-  var routeTimers = [];
-
-  function setState(s) {
-    if (!stage || stage.getAttribute('data-state') === s) return;
-    stage.setAttribute('data-state', s);
-    if (phaseEl) phaseEl.textContent = PHASE[s];
-    navLinks.forEach(function (a) { a.getAttribute('data-step') === s ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current'); });
-    chapters.forEach(function (c) { c.classList.toggle('is-current', c.getAttribute('data-chapter') === s); });
-    if (waves[1]) waves[1].target = STATE_AMP[s];
-    // Route: the three technical checkpoints, then the branch lights.
-    routeTimers.forEach(clearTimeout); routeTimers = [];
-    if (s === 'route') {
-      if (motion()) {
-        ['route-t1', 'route-t2', 'route-t3', 'route-lit'].forEach(function (c, i) {
-          routeTimers.push(setTimeout(function () { stage.classList.add(c); }, 250 + i * 450));
-        });
-      } else stage.classList.add('route-t1', 'route-t2', 'route-t3', 'route-lit');
-    } else if (motion()) {
-      stage.classList.remove('route-t1', 'route-t2', 'route-t3', 'route-lit');
-    }
-    if (s === 'listen') playTranscript(false);
-  }
+  /* ---------- demo ---------- */
+  var stage = $('#stage');
   if (stage) {
-    stage.classList.add('route-lit');
-    if ('IntersectionObserver' in window) {
-      var cio = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) setState(e.target.getAttribute('data-chapter')); });
-      }, { rootMargin: '-45% 0px -50% 0px' });
-      chapters.forEach(function (c) { cio.observe(c); });
+    var scns = {};
+    $$('.scn', stage).forEach(function (a) { scns[a.getAttribute('data-scn')] = a; });
+    var bizBtns = $$('.biz'), subWrap = $('.sub-select', stage), subBtns = $$('.sub', stage);
+    var callStep = $('#call-step'), callLine = $('.call-line', stage), live = $('#demo-live');
+    var btn = {}; $$('.ctl', stage).forEach(function (b) { btn[b.getAttribute('data-act')] = b; });
+    var NAMES = { salon: 'Salon', hvac: 'HVAC', plumbing: 'Plumbing', 'restaurant-reserve': 'Restaurant, reserve a table', 'restaurant-order': 'Restaurant, pickup order' };
+
+    // One state object. Every scheduled step carries the token it was created with,
+    // so a switch, pause or restart makes any pending step a no-op.
+    var S = { scn: null, step: 0, playing: false, timer: 0, token: 0, lastSub: 'restaurant-reserve' };
+    var active = function () { return scns[S.scn]; };
+    var total = function () { return $$('.flow li', active()).length; };
+
+    function stop() { S.playing = false; S.token++; clearTimeout(S.timer); S.timer = 0; }
+
+    function applyBinds(a) {
+      $$('.choices', a).forEach(function (fs) {
+        var checked = $('input:checked', fs); if (!checked) return;
+        $$('[data-bind="' + checked.name + '"]', a).forEach(function (el) { el.textContent = checked.getAttribute('data-label'); });
+      });
     }
-    navLinks[0] && navLinks[0].setAttribute('aria-current', 'step');
-    chapters[0] && chapters[0].classList.add('is-current');
+    function resetChoices(a) {
+      $$('.choices input', a).forEach(function (i) { i.checked = i.defaultChecked; });
+      applyBinds(a);
+    }
 
-    // Progress through the journey, read from normal scrolling (never altered).
-    var journey = $('.chapters'), bar = $('.stage-progress span'), ticking = false;
-    var onScroll = function () {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(function () {
-        ticking = false;
-        var r = journey.getBoundingClientRect(), vh = window.innerHeight;
-        var p = Math.min(1, Math.max(0, (vh * 0.5 - r.top) / (r.height - vh * 0.3)));
-        bar.style.setProperty('--p', p.toFixed(3));
+    function render(announce) {
+      var a = active(), n = total(), names = $$('.flow li', a);
+      $$('[data-step]', a).forEach(function (el) { el.classList.toggle('on', +el.getAttribute('data-step') <= S.step); });
+      names.forEach(function (li, i) {
+        li.classList.toggle('done', i + 1 < S.step || (S.step === n && i + 1 === n));
+        if (i + 1 === S.step) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
       });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    onScroll();
-
-    // Demo clock: counts from 02:13:08 while the journey is on screen.
-    var secs = 2 * 3600 + 13 * 60 + 8, clockTimer = 0, stageVisible = false;
-    var fmt = function (n) { return (n < 10 ? '0' : '') + n; };
-    var runClock = function () {
-      var on = stageVisible && !doc.hidden && motion();
-      if (on && !clockTimer) clockTimer = setInterval(function () {
-        secs++; clockEl.textContent = fmt(Math.floor(secs / 3600)) + ':' + fmt(Math.floor(secs / 60) % 60) + ':' + fmt(secs % 60);
-      }, 1000);
-      if (!on && clockTimer) { clearInterval(clockTimer); clockTimer = 0; }
-    };
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { stageVisible = es[0].isIntersecting; runClock(); }).observe($('.journey-grid'));
-    doc.addEventListener('visibilitychange', runClock);
-  }
-
-  /* ---------- transcript: line by line, fields form from the words ---------- */
-  var tr = $('.transcript'), lines = $$('.tr', tr || doc), extract = $('.extract'), replay = $('.tr-replay');
-  var trTimers = [], played = false;
-  function markGot(x) {
-    $$('mark[data-x="' + x + '"]').forEach(function (m) { m.classList.add('got'); });
-    $$('.extract [data-x="' + x + '"], .stage .x-field[data-x="' + x + '"]').forEach(function (el) { el.classList.add('got'); });
-  }
-  function showAll() {
-    lines.forEach(function (l) { l.classList.add('shown'); });
-    ['service', 'urgency', 'request'].forEach(markGot);
-  }
-  function playTranscript(force) {
-    if (!tr || (played && !force)) return;
-    played = true;
-    trTimers.forEach(clearTimeout); trTimers = [];
-    if (!motion()) { tr.classList.remove('playing'); showAll(); return; }
-    tr.classList.add('playing'); extract.classList.add('pending');
-    $$('.shown, .got').forEach(function (el) { el.classList.remove('shown', 'got'); });
-    var at = 200;
-    lines.forEach(function (l) {
-      trTimers.push(setTimeout(function () {
-        l.classList.add('shown');
-        $$('mark', l).forEach(function (m) {
-          var x = m.getAttribute('data-x');
-          trTimers.push(setTimeout(function () { markGot(x); }, 650));
-        });
-      }, at));
-      at += Math.max(1100, l.textContent.length * 26);
-    });
-    trTimers.push(setTimeout(function () { replay.hidden = false; }, at));
-  }
-  if (tr) {
-    if (motion()) {
-      // Hide lines only once a play is actually starting, so nothing is withheld if scripts stall.
-      showAll();
-      if ('IntersectionObserver' in window) {
-        var tio = new IntersectionObserver(function (es) {
-          if (es[0].isIntersecting) { tio.disconnect(); playTranscript(false); }
-        }, { rootMargin: '0px 0px -25% 0px' });
-        tio.observe(tr);
+      var label = S.step === 0 ? 'Ready. Press Play example or Next step.'
+        : (S.step === n ? 'Complete · ' : 'Step ' + S.step + ' of ' + n + ' · ') + names[S.step - 1].textContent;
+      callStep.textContent = label;
+      callLine.textContent = S.step === 0 ? 'Incoming call' : S.step === n ? 'Call summary' : 'On the call';
+      btn.play.disabled = S.playing;
+      btn.play.textContent = S.step >= n ? 'Play again' : S.step > 0 ? 'Resume' : 'Play example';
+      btn.pause.disabled = !S.playing;
+      btn.next.disabled = S.step >= n;
+      btn.restart.disabled = S.step === 0 && !S.playing;
+      stage.classList.toggle('is-live', S.playing || (S.step > 0 && S.step < n));
+      // keep the newest line in view inside the conversation panel (desktop scroll box only; the page itself never moves)
+      var msgs = $('.msgs', a);
+      if (msgs && msgs.scrollHeight > msgs.clientHeight) msgs.scrollTop = msgs.scrollHeight;
+      if (announce) {
+        var said = $$('.msg[data-step="' + S.step + '"]', a).map(function (m) { return m.textContent.replace(/\s+/g, ' ').trim(); });
+        live.textContent = label + (said.length ? '. ' + said.join(' ') : '');
       }
-    } else { showAll(); }
-    replay.hidden = !motion();
-    replay.addEventListener('click', function () { playTranscript(true); });
-  }
+      wave.target = S.playing ? 1 : (S.step > 0 && S.step < n ? 0.35 : 0.08);
+      wave.run();
+    }
 
-  /* ---------- slot selection carries into booking and the lead record ---------- */
-  var slotInputs = $$('input[name="slot"]');
-  function applySlot(input) {
-    var label = input.getAttribute('data-label');
-    $$('[data-bind="time"]').forEach(function (el) { el.textContent = label; });
-    $$('.stage .slot').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-slot') === input.value); });
-    slotInputs.forEach(function (o) {
-      var t = $('.stage .slot[data-slot="' + o.value + '"] text');
-      if (t) t.textContent = o.getAttribute('data-label') + (o === input ? ' · selected' : ' open');
-    });
-    // Confirmation path leaves from the chosen slot.
-    var y = { '0900': 110, '1130': 210, '1400': 310 }[input.value];
-    var sp = $('.send-path'); if (sp) sp.setAttribute('d', 'M354 ' + y + ' H380 V40 H400');
-  }
-  slotInputs.forEach(function (i) {
-    i.addEventListener('change', function () { applySlot(i); });
-    if (i.checked) applySlot(i);
-  });
+    function delayFor(step) {
+      var chars = $$('[data-step="' + step + '"]', active()).reduce(function (t, el) { return t + (el.classList.contains('msg') ? el.textContent.length : 0); }, 0);
+      return Math.min(5200, 1300 + chars * 24);
+    }
+    function schedule(ms) {
+      var token = S.token;
+      S.timer = setTimeout(function () {
+        if (token !== S.token || !S.playing) return;           // stale: a switch, pause or restart happened
+        S.step++;
+        if (S.step >= total()) { S.step = total(); S.playing = false; }
+        render(true);
+        if (S.playing) schedule(delayFor(S.step));
+      }, ms);
+    }
+    function play() {
+      if (S.playing) return;
+      stop();
+      if (S.step >= total()) { S.step = 0; }
+      S.playing = true;
+      render(false);
+      schedule(S.step === 0 ? 500 : 700);
+    }
+    function pause() { stop(); render(false); live.textContent = 'Paused at ' + callStep.textContent; }
+    function next() { stop(); if (S.step < total()) S.step++; render(true); }
+    function restart() { stop(); S.step = 0; resetChoices(active()); render(false); play(); }
 
-  /* ---------- Behind the call: route tabs ---------- */
-  var tabs = $$('[role="tab"]');
-  function selectTab(t, focus) {
-    tabs.forEach(function (o) {
-      var on = o === t;
-      o.setAttribute('aria-selected', String(on)); o.tabIndex = on ? 0 : -1;
-      doc.getElementById(o.getAttribute('aria-controls')).hidden = !on;
-    });
-    if (focus) t.focus();
-  }
-  if (tabs.length) {
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { selectTab(t, false); });
-      t.addEventListener('keydown', function (e) {
-        var k = e.key, n = tabs.length, to = null;
-        if (k === 'ArrowRight' || k === 'ArrowDown') to = tabs[(i + 1) % n];
-        if (k === 'ArrowLeft' || k === 'ArrowUp') to = tabs[(i - 1 + n) % n];
-        if (k === 'Home') to = tabs[0];
-        if (k === 'End') to = tabs[n - 1];
-        if (to) { e.preventDefault(); selectTab(to, true); }
+    function activate(id, announce) {
+      if (!scns[id]) return;
+      stop();
+      S.scn = id; S.step = 0;
+      Object.keys(scns).forEach(function (k) { scns[k].classList.toggle('is-active', k === id); });
+      $$('.on', stage).forEach(function (el) { el.classList.remove('on'); });
+      var biz = scns[id].getAttribute('data-biz');
+      stage.setAttribute('data-scn', id); stage.setAttribute('data-biz', biz);
+      bizBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-biz') === biz)); });
+      subWrap.hidden = biz !== 'restaurant';
+      if (biz === 'restaurant') { S.lastSub = id; subBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-scn') === id)); }); }
+      resetChoices(scns[id]);
+      var msgs = $('.msgs', scns[id]); if (msgs) msgs.scrollTop = 0;
+      render(false);
+      if (announce) live.textContent = 'Showing the ' + NAMES[id] + ' example. Press Play example or Next step.';
+    }
+
+    /* centre voice line: moves only while the example plays */
+    var wave = (function () {
+      var svg = $('.stage-center .wave'), path = svg && $('.wave-line', svg);
+      var w = { amp: 0.08, target: 0.08, t: 0, raf: 0, last: 0, visible: true };
+      function d(amp, t) {
+        var out = '', n = 80;
+        for (var i = 0; i <= n; i++) {
+          var u = i / n, edge = Math.sin(Math.PI * u);
+          var words = 0.55 + 0.45 * Math.sin(u * 13 + t * 1.4) * Math.sin(u * 5 - t * 0.8);
+          var y = 30 + (Math.sin(u * 90 + t * 9) * 0.6 + Math.sin(u * 37 - t * 6) * 0.4) * words * edge * amp * 26;
+          out += (i ? ' L' : 'M') + (u * 200).toFixed(1) + ' ' + y.toFixed(1);
+        }
+        return out;
+      }
+      function frame(now) {
+        var dt = w.last ? Math.min(0.05, (now - w.last) / 1000) : 0; w.last = now;
+        w.amp += (w.target - w.amp) * Math.min(1, dt * 4);
+        w.t += dt;
+        path.setAttribute('d', d(w.amp, w.t));
+        var settled = Math.abs(w.amp - w.target) < 0.01 && w.target < 0.1;
+        w.raf = settled ? 0 : requestAnimationFrame(frame);
+      }
+      w.run = function () {
+        if (!path) return;
+        if (!motion() || !w.visible || doc.hidden) { if (w.raf) cancelAnimationFrame(w.raf); w.raf = 0; w.amp = w.target; path.setAttribute('d', d(Math.min(w.target, 0.3), 0)); return; }
+        if (!w.raf) { w.last = 0; w.raf = requestAnimationFrame(frame); }
+      };
+      if (svg && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { w.visible = es[0].isIntersecting; w.run(); }).observe(svg);
+      return w;
+    })();
+
+    bizBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var biz = b.getAttribute('data-biz');
+        activate(biz === 'restaurant' ? S.lastSub : biz, true);
       });
     });
-    selectTab(tabs[0], false);
+    subBtns.forEach(function (b) { b.addEventListener('click', function () { activate(b.getAttribute('data-scn'), true); }); });
+    btn.play.addEventListener('click', play);
+    btn.pause.addEventListener('click', pause);
+    btn.next.addEventListener('click', next);
+    btn.restart.addEventListener('click', restart);
+    stage.addEventListener('change', function (e) { if (e.target.closest('.choices')) applyBinds(active()); });
+    doc.addEventListener('visibilitychange', function () { if (doc.hidden && S.playing) pause(); });
+    onMq(function () { wave.run(); });
+
+    activate(stage.getAttribute('data-scn') || 'hvac', false);
+
+    // Scroll introduces the demo once: it starts playing the first time it comes into view (text only, never sound).
+    if (motion() && 'IntersectionObserver' in window) {
+      var intro = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return;
+        intro.disconnect();
+        if (S.step === 0 && !S.playing) play();
+      }, { threshold: 0.35 });
+      intro.observe(stage);
+    }
   }
 
   /* ---------- inquiry form: validates, then opens an email draft ---------- */
@@ -269,8 +211,8 @@
       ['f-biz', 'e-biz', function (v) { return v.trim() ? '' : 'Enter your business name.'; }],
       ['f-email', 'e-email', function (v) { return !v.trim() ? 'Enter your work email.' : (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Enter an email address like name@company.com.'); }],
       ['f-phone', 'e-phone', function (v) { return !v.trim() || /^[0-9+().\-\s]{7,}$/.test(v.trim()) ? '' : 'Use digits, spaces, +, - or parentheses.'; }],
-      ['f-ind', 'e-ind', function (v) { return v ? '' : 'Choose an industry.'; }],
-      ['f-proc', 'e-proc', function (v) { return v.trim().length >= 10 ? '' : 'Describe the process in a sentence or two.'; }],
+      ['f-ind', 'e-ind', function (v) { return v ? '' : 'Choose a business type.'; }],
+      ['f-proc', 'e-proc', function (v) { return v.trim().length >= 10 ? '' : 'Describe what should happen in a sentence or two.'; }],
       ['f-consent', 'e-consent', function (v, el) { return el.checked ? '' : 'Check this box so we can reply.'; }]
     ];
     var check = function (r) {
@@ -297,31 +239,17 @@
         'Business: ' + f.business.value.trim(),
         'Work email: ' + f.email.value.trim(),
         'Phone: ' + (f.phone.value.trim() || 'not provided'),
-        'Industry: ' + f.industry.value,
+        'Business type: ' + f.industry.value,
         'Preferred contact: ' + method,
         '',
-        'What process takes too much time?',
+        'What should happen when a customer calls?',
         f.process.value.trim(),
         '',
         'Consent: I agree that Lumera Creative may use these details to reply to this inquiry.'
       ].join('\n');
-      var href = 'mailto:contact@lumeracreative.agency?subject=' + encodeURIComponent('Automation inquiry from ' + f.business.value.trim()) + '&body=' + encodeURIComponent(body);
+      var href = 'mailto:contact@lumeracreative.agency?subject=' + encodeURIComponent('Voice receptionist inquiry from ' + f.business.value.trim()) + '&body=' + encodeURIComponent(body);
       status.textContent = 'Your email app should open with the message ready. Nothing has been sent yet. If it does not open, email contact@lumeracreative.agency directly.';
       window.location.href = href;
     });
-  }
-
-  /* ---------- mobile CTA dock: only between the journey and the contact form ---------- */
-  // Shown while the technical, capability and process sections are on screen, so it never sits over the
-  // transcript, the demo records or the form. Hidden on desktop by CSS.
-  var dock = $('.dock-cta');
-  if (dock && 'IntersectionObserver' in window) {
-    var zone = new Set();
-    var dio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { e.isIntersecting ? zone.add(e.target.id) : zone.delete(e.target.id); });
-      var mid = zone.has('behind') || zone.has('capabilities') || zone.has('process');
-      dock.classList.toggle('show', mid && !zone.has('contact') && !zone.has('ch-handoff'));
-    });
-    ['behind', 'capabilities', 'process', 'contact', 'ch-handoff'].forEach(function (id) { dio.observe(doc.getElementById(id)); });
   }
 })();

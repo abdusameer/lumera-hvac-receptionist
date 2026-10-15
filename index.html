@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HVAC Call Desk · Lumera Creative</title>
-<meta name="description" content="A working automation prototype by Lumera Creative: a voice receptionist for HVAC teams that checks availability, books appointments and organizes qualified leads.">
+<title>Voice Receptionist Automation · Lumera Creative</title>
+<meta name="description" content="Voice receptionists configured around your business, from appointment scheduling and service requests to reservations and order intake. A prototype in development by Lumera Creative.">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0B0C0D">
+<meta name="theme-color" content="#06080D">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action mailto:">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -23,13 +23,13 @@
     <svg class="owl" aria-hidden="true" focusable="false"><use href="assets/img/owl.svg#owl"/></svg>
     <span class="brand-name">Lumera Creative</span>
   </a>
-  <p class="proto-tag"><span class="dot" aria-hidden="true"></span>Working automation prototype</p>
+  <p class="proto-tag"><span class="dot" aria-hidden="true"></span>Prototype in development</p>
   <nav class="site-nav" aria-label="Primary">
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
     <ul id="nav-list">
-      <li><a href="#journey">The call</a></li>
-      <li><a href="#behind">Behind the call</a></li>
-      <li><a href="#process">Process</a></li>
+      <li><a href="#demo">Explore a call</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#configure">What changes</a></li>
       <li><a class="nav-cta" href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -39,413 +39,368 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero-signal">
-    <p class="call-label">
-      <span class="ring" aria-hidden="true"></span>
-      <span class="call-kind">Incoming service call</span>
-      <span class="call-meta">Los Angeles · 2:13 AM</span>
-    </p>
-    <svg class="wave wave-hero" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <line class="wave-base" x1="0" y1="80" x2="1200" y2="80"/>
-      <path class="wave-line" d="M0.0 80.0 L5.5 80.3 L10.9 81.0 L16.4 81.6 L21.8 81.7 L27.3 81.1 L32.7 79.9 L38.2 78.7 L43.6 78.2 L49.1 78.7 L54.5 80.2 L60.0 82.0 L65.5 83.0 L70.9 82.2 L76.4 79.3 L81.8 74.9 L87.3 70.5 L92.7 67.9 L98.2 68.6 L103.6 72.8 L109.1 79.5 L114.5 86.3 L120.0 91.0 L125.5 91.9 L130.9 89.0 L136.4 83.9 L141.8 79.0 L147.3 76.5 L152.7 77.7 L158.2 81.8 L163.6 86.9 L169.1 90.5 L174.5 90.7 L180.0 87.1 L185.5 80.8 L190.9 74.0 L196.4 69.2 L201.8 67.7 L207.3 69.6 L212.7 73.8 L218.2 78.4 L223.6 81.8 L229.1 83.2 L234.5 82.7 L240.0 81.2 L245.5 79.5 L250.9 78.5 L256.4 78.6 L261.8 79.6 L267.3 81.1 L272.7 82.8 L278.2 84.1 L283.6 84.5 L289.1 83.7 L294.5 81.5 L300.0 78.3 L305.5 74.9 L310.9 72.6 L316.4 72.3 L321.8 74.5 L327.3 78.4 L332.7 82.2 L338.2 83.8 L343.6 81.5 L349.1 75.8 L354.5 68.7 L360.0 63.9 L365.5 64.8 L370.9 72.8 L376.4 86.8 L381.8 102.5 L387.3 114.4 L392.7 117.7 L398.2 110.7 L403.6 95.5 L409.1 77.6 L414.5 63.6 L420.0 58.4 L425.5 63.0 L430.9 74.4 L436.4 86.5 L441.8 92.9 L447.3 89.6 L452.7 77.0 L458.2 59.8 L463.6 44.8 L469.1 38.5 L474.5 43.9 L480.0 59.9 L485.5 81.3 L490.9 101.1 L496.4 113.2 L501.8 114.5 L507.3 106.1 L512.7 92.5 L518.2 79.4 L523.6 71.9 L529.1 72.3 L534.5 79.5 L540.0 89.8 L545.5 97.9 L550.9 99.8 L556.4 93.4 L561.8 79.9 L567.3 63.2 L572.7 48.9 L578.2 41.9 L583.6 44.7 L589.1 56.9 L594.5 74.3 L600.0 91.3 L605.5 102.0 L610.9 103.1 L616.4 95.2 L621.8 82.5 L627.3 71.5 L632.7 68.1 L638.2 75.3 L643.6 91.4 L649.1 110.5 L654.5 124.5 L660.0 126.7 L665.5 114.3 L670.9 90.4 L676.4 62.2 L681.8 39.3 L687.3 28.8 L692.7 33.4 L698.2 49.9 L703.6 70.9 L709.1 87.8 L714.5 94.5 L720.0 89.7 L725.5 77.3 L730.9 64.2 L736.4 57.2 L741.8 60.2 L747.3 72.7 L752.7 89.9 L758.2 105.5 L763.6 113.9 L769.1 112.8 L774.5 103.4 L780.0 89.9 L785.5 77.2 L790.9 69.2 L796.4 67.3 L801.8 70.3 L807.3 75.5 L812.7 80.3 L818.2 82.6 L823.6 82.1 L829.1 79.7 L834.5 76.8 L840.0 74.6 L845.5 74.0 L850.9 75.1 L856.4 77.5 L861.8 80.6 L867.3 83.7 L872.7 85.9 L878.2 86.6 L883.6 85.6 L889.1 83.1 L894.5 80.0 L900.0 77.4 L905.5 76.7 L910.9 78.2 L916.4 81.5 L921.8 85.0 L927.3 86.6 L932.7 84.8 L938.2 79.3 L943.6 71.5 L949.1 64.2 L954.5 60.3 L960.0 61.6 L965.5 68.3 L970.9 78.0 L976.4 87.6 L981.8 93.7 L987.3 94.5 L992.7 90.5 L998.2 84.0 L1003.6 78.1 L1009.1 75.7 L1014.5 77.6 L1020.0 82.9 L1025.5 89.1 L1030.9 93.2 L1036.4 93.2 L1041.8 89.0 L1047.3 81.8 L1052.7 74.2 L1058.2 68.7 L1063.6 66.8 L1069.1 68.6 L1074.5 73.0 L1080.0 77.9 L1085.5 81.8 L1090.9 83.4 L1096.4 82.8 L1101.8 80.8 L1107.3 78.7 L1112.7 77.4 L1118.2 77.6 L1123.6 79.2 L1129.1 81.5 L1134.5 83.6 L1140.0 84.7 L1145.5 84.5 L1150.9 83.2 L1156.4 81.2 L1161.8 79.4 L1167.3 78.2 L1172.7 78.0 L1178.2 78.5 L1183.6 79.3 L1189.1 79.9 L1194.5 80.1 L1200.0 80.0"/>
-    </svg>
-  </div>
   <div class="hero-copy">
-    <h1 id="hero-title" class="split">Every call becomes a clear next&nbsp;step.</h1>
-    <p class="lede">A voice receptionist for HVAC teams that checks availability, books appointments and organizes qualified leads, even when the office cannot answer.</p>
+    <p class="eyebrow"><span class="ring" aria-hidden="true"></span>Voice Receptionist Automation</p>
+    <h1 id="hero-title" class="split">Your next customer is calling.</h1>
+    <p class="lede">Voice receptionists configured around your business, from appointment scheduling and service requests to reservations and order intake.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#journey">Watch the call</a>
-      <a class="btn btn-ghost" href="#contact">Build this for my business</a>
+      <a class="btn btn-primary" href="#demo">Explore a call</a>
+      <a class="btn btn-ghost" href="#contact">Discuss your workflow</a>
     </div>
-    <p class="fine">Working automation prototype by Lumera Creative. The call on this page is a demonstration with fictional data.</p>
   </div>
+  <figure class="hero-receiver">
+    <img src="assets/img/receiver-560.webp" srcset="assets/img/receiver-560.webp 560w, assets/img/receiver-1000.webp 1000w" sizes="(min-width: 900px) 30vw, 46vw" width="560" height="1244" alt="A polished silver telephone receiver lit with a cobalt-blue edge." fetchpriority="high" decoding="async">
+    <svg class="hero-rings" viewBox="0 0 400 400" aria-hidden="true" focusable="false"><circle cx="200" cy="200" r="120"/><circle cx="200" cy="200" r="160"/><circle cx="200" cy="200" r="196"/></svg>
+  </figure>
 </section>
 
-<!-- ============ JOURNEY ============ -->
-<section class="journey" id="journey" aria-labelledby="journey-title">
-  <div class="journey-intro">
-    <p class="eyebrow">The call, start to finish</p>
-    <h2 id="journey-title" class="split">Follow one call through the system.</h2>
-    <p>Scroll at your own pace. Each chapter shows what the caller hears, and what the business receives.</p>
+<!-- ============ DEMO ============ -->
+<section class="demo" id="demo" aria-labelledby="demo-title">
+  <div class="demo-head">
+    <h2 id="demo-title" class="sec-title">Choose a business and follow one call.</h2>
+    <p class="sec-sub">Each example asks different questions, offers different choices and ends with a different result.</p>
   </div>
 
-  <div class="journey-grid">
+  <div class="biz-select" role="group" aria-labelledby="biz-label">
+    <p id="biz-label" class="mono-cap">Business type</p>
+    <div class="biz-row">
+      <button type="button" class="biz" data-biz="salon" aria-pressed="false"><span class="biz-n">01</span>Salon</button>
+      <button type="button" class="biz" data-biz="hvac" aria-pressed="true"><span class="biz-n">02</span>HVAC</button>
+      <button type="button" class="biz" data-biz="plumbing" aria-pressed="false"><span class="biz-n">03</span>Plumbing</button>
+      <button type="button" class="biz" data-biz="restaurant" aria-pressed="false"><span class="biz-n">04</span>Restaurant</button>
+    </div>
+  </div>
 
-    <!-- Persistent stage: the call signal. Decorative mirror of the chapter content, plus chapter navigation. -->
-    <aside class="stage" aria-label="Call progress" data-state="listen">
-      <div class="stage-frame">
-        <div class="stage-head">
-          <span class="stage-id" aria-hidden="true">Demo call · <b class="stage-clock">02:13:08</b></span>
-          <span class="stage-phase" aria-hidden="true">Listen</span>
-        </div>
-        <svg class="wave wave-stage" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <line class="wave-base" x1="0" y1="40" x2="400" y2="40"/>
-          <path class="wave-line" d="M0.0 40.0 L3.3 40.4 L6.7 40.5 L10.0 39.3 L13.3 37.9 L16.7 38.2 L20.0 40.1 L23.3 41.2 L26.7 40.0 L30.0 38.5 L33.3 39.4 L36.7 42.1 L40.0 43.6 L43.3 42.0 L46.7 39.1 L50.0 37.9 L53.3 38.9 L56.7 40.3 L60.0 40.3 L63.3 38.8 L66.7 37.5 L70.0 38.8 L73.3 43.0 L76.7 46.4 L80.0 44.5 L83.3 38.5 L86.7 35.6 L90.0 40.1 L93.3 45.3 L96.7 40.6 L100.0 26.8 L103.3 19.5 L106.7 30.5 L110.0 51.0 L113.3 59.8 L116.7 49.4 L120.0 35.9 L123.3 37.7 L126.7 51.5 L130.0 56.6 L133.3 42.4 L136.7 22.4 L140.0 17.3 L143.3 30.5 L146.7 45.8 L150.0 48.1 L153.3 39.7 L156.7 34.8 L160.0 41.4 L163.3 52.5 L166.7 54.8 L170.0 43.7 L173.3 29.2 L176.7 25.3 L180.0 34.4 L183.3 44.0 L186.7 41.3 L190.0 30.1 L193.3 27.6 L196.7 42.0 L200.0 60.4 L203.3 62.8 L206.7 46.7 L210.0 30.5 L213.3 30.2 L216.7 40.7 L220.0 44.8 L223.3 36.8 L226.7 27.7 L230.0 29.5 L233.3 39.8 L236.7 47.3 L240.0 46.2 L243.3 41.3 L246.7 38.8 L250.0 39.8 L253.3 41.7 L256.7 41.6 L260.0 39.0 L263.3 35.6 L266.7 35.1 L270.0 39.2 L273.3 44.5 L276.7 44.5 L280.0 39.4 L283.3 37.2 L286.7 44.2 L290.0 53.3 L293.3 51.3 L296.7 36.5 L300.0 23.1 L303.3 25.0 L306.7 38.0 L310.0 45.7 L313.3 40.4 L316.7 32.3 L320.0 34.8 L323.3 46.7 L326.7 54.7 L330.0 50.3 L333.3 39.2 L336.7 33.0 L340.0 35.6 L343.3 40.7 L346.7 41.3 L350.0 37.4 L353.3 34.6 L356.7 36.9 L360.0 42.3 L363.3 45.4 L366.7 43.7 L370.0 39.9 L373.3 38.4 L376.7 40.0 L380.0 41.5 L383.3 40.6 L386.7 38.5 L390.0 37.9 L393.3 39.1 L396.7 40.2 L400.0 40.0"/>
-        </svg>
-
-        <svg class="stage-art" viewBox="0 0 400 440" aria-hidden="true" focusable="false">
-          <defs>
-            <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y1="0" x2="0" y2="6" class="hatch-line"/>
-            </pattern>
-          </defs>
-
-          <!-- 01 LISTEN: the waveform drops three markers that become fields -->
-          <g class="layer" data-layer="listen">
-            <g class="x-field" data-x="service">
-              <line class="drop" x1="70" y1="10" x2="70" y2="150"/>
-              <circle class="node" cx="70" cy="150" r="4"/>
-              <text class="lab" x="70" y="180" text-anchor="middle">SERVICE</text>
-              <text class="val" x="70" y="202" text-anchor="middle">No cooling</text>
-            </g>
-            <g class="x-field" data-x="urgency">
-              <line class="drop" x1="200" y1="10" x2="200" y2="230"/>
-              <circle class="node amber" cx="200" cy="230" r="4"/>
-              <text class="lab" x="200" y="260" text-anchor="middle">URGENCY</text>
-              <text class="val" x="200" y="282" text-anchor="middle">After-hours</text>
-            </g>
-            <g class="x-field" data-x="request">
-              <line class="drop" x1="330" y1="10" x2="330" y2="310"/>
-              <circle class="node" cx="330" cy="310" r="4"/>
-              <text class="lab" x="330" y="340" text-anchor="middle">REQUEST</text>
-              <text class="val" x="330" y="362" text-anchor="middle">Diagnostic visit</text>
-            </g>
-          </g>
-
-          <!-- 02 ROUTE: three-way junction -->
-          <g class="layer" data-layer="route">
-            <path class="trace" d="M200 0 V170"/>
-            <circle class="junction" cx="200" cy="180" r="10"/>
-            <path class="branch b-avail" d="M200 190 C200 250 70 250 70 320"/>
-            <path class="branch b-book" d="M200 190 V320"/>
-            <path class="branch b-qual" d="M200 190 C200 250 330 250 330 320"/>
-            <circle class="bnode b-avail" cx="70" cy="326" r="5"/>
-            <circle class="bnode b-book" cx="200" cy="326" r="5"/>
-            <circle class="bnode b-qual" cx="330" cy="326" r="5"/>
-            <text class="blab b-avail" x="70" y="356" text-anchor="middle">CHECK</text>
-            <text class="blab b-avail" x="70" y="372" text-anchor="middle">AVAILABILITY</text>
-            <text class="blab b-book" x="200" y="356" text-anchor="middle">BOOK</text>
-            <text class="blab b-book" x="200" y="372" text-anchor="middle">APPOINTMENT</text>
-            <text class="blab b-qual" x="330" y="356" text-anchor="middle">QUALIFY</text>
-            <text class="blab b-qual" x="330" y="372" text-anchor="middle">LEAD</text>
-            <text class="tick-lab t1" x="216" y="44">Webhook received</text>
-            <text class="tick-lab t2" x="216" y="88">Request validated</text>
-            <text class="tick-lab t3" x="216" y="132">Route selected</text>
-          </g>
-
-          <!-- 03 + 04 CALENDAR: one day, 8 AM to 5 PM, 40px per hour starting y=50 -->
-          <g class="layer" data-layer="calendar">
-            <text class="cal-date" x="60" y="30">2026-07-14 · America/Los_Angeles</text>
-            <g class="hours">
-              <text x="50" y="54" text-anchor="end">8</text><line x1="60" y1="50" x2="360" y2="50"/>
-              <text x="50" y="94" text-anchor="end">9</text><line x1="60" y1="90" x2="360" y2="90"/>
-              <text x="50" y="134" text-anchor="end">10</text><line x1="60" y1="130" x2="360" y2="130"/>
-              <text x="50" y="174" text-anchor="end">11</text><line x1="60" y1="170" x2="360" y2="170"/>
-              <text x="50" y="214" text-anchor="end">12</text><line x1="60" y1="210" x2="360" y2="210"/>
-              <text x="50" y="254" text-anchor="end">1</text><line x1="60" y1="250" x2="360" y2="250"/>
-              <text x="50" y="294" text-anchor="end">2</text><line x1="60" y1="290" x2="360" y2="290"/>
-              <text x="50" y="334" text-anchor="end">3</text><line x1="60" y1="330" x2="360" y2="330"/>
-              <text x="50" y="374" text-anchor="end">4</text><line x1="60" y1="370" x2="360" y2="370"/>
-              <text x="50" y="414" text-anchor="end">5</text><line x1="60" y1="410" x2="360" y2="410"/>
-            </g>
-            <g class="busy">
-              <rect x="66" y="52" width="288" height="36" rx="3"/>
-              <rect x="66" y="132" width="288" height="56" rx="3"/>
-              <rect x="66" y="232" width="288" height="56" rx="3"/>
-              <rect x="66" y="332" width="288" height="76" rx="3"/>
-              <text x="78" y="74">Booked</text><text x="78" y="154">Booked</text><text x="78" y="254">Booked</text><text x="78" y="354">Booked</text>
-            </g>
-            <g class="slots">
-              <g class="slot" data-slot="0900"><rect x="66" y="92" width="288" height="36" rx="3"/><text x="78" y="114">9:00 AM open</text></g>
-              <g class="slot" data-slot="1130"><rect x="66" y="192" width="288" height="36" rx="3"/><text x="78" y="214">11:30 AM open</text></g>
-              <g class="slot" data-slot="1400"><rect x="66" y="292" width="288" height="36" rx="3"/><text x="78" y="314">2:00 PM open</text></g>
-            </g>
-            <g class="send">
-              <path class="send-path" d="M354 210 H380 V40 H400"/>
-              <text class="send-lab" x="372" y="22" text-anchor="end">Confirmation sent</text>
-            </g>
-          </g>
-
-          <!-- 05 QUALIFY: the conversation becomes a record -->
-          <g class="layer" data-layer="qualify">
-            <g class="rec">
-              <text x="40" y="40">customer_name</text><rect x="190" y="30" width="130" height="12" rx="2"/>
-              <text x="40" y="84">contact</text><rect x="190" y="74" width="150" height="12" rx="2"/>
-              <text x="40" y="128">service</text><rect x="190" y="118" width="100" height="12" rx="2"/>
-              <text x="40" y="172">reported_issue</text><rect x="190" y="162" width="170" height="12" rx="2"/>
-              <text x="40" y="216">urgency</text><rect x="190" y="206" width="90" height="12" rx="2" class="amber"/>
-              <text x="40" y="260">requested_date</text><rect x="190" y="250" width="110" height="12" rx="2"/>
-              <text x="40" y="304">appointment</text><rect x="190" y="294" width="120" height="12" rx="2" class="blue"/>
-              <text x="40" y="348">summary</text><rect x="190" y="338" width="170" height="12" rx="2"/><rect x="190" y="358" width="140" height="12" rx="2"/>
-            </g>
-          </g>
-
-          <!-- 06 HANDOFF: paths rejoin into one confirmed step -->
-          <g class="layer" data-layer="handoff">
-            <path class="join blue" d="M70 20 C70 140 200 120 200 210"/>
-            <path class="join blue" d="M200 20 V210"/>
-            <path class="join violet" d="M330 20 C330 140 200 120 200 210"/>
-            <path class="trace done" d="M200 210 V330"/>
-            <circle class="end" cx="200" cy="350" r="20"/>
-            <path class="check" d="M190 350 l7 7 l14 -15"/>
-            <text class="end-lab" x="200" y="408" text-anchor="middle">SCHEDULED SERVICE</text>
-          </g>
-        </svg>
-
-        <nav class="stage-nav" aria-label="Call journey chapters">
-          <div class="stage-progress" aria-hidden="true"><span></span></div>
-          <ol>
-            <li><a href="#ch-listen" data-step="listen"><b>01</b> Listen</a></li>
-            <li><a href="#ch-route" data-step="route"><b>02</b> Route</a></li>
-            <li><a href="#ch-availability" data-step="availability"><b>03</b> Check</a></li>
-            <li><a href="#ch-book" data-step="book"><b>04</b> Book</a></li>
-            <li><a href="#ch-qualify" data-step="qualify"><b>05</b> Qualify</a></li>
-            <li><a href="#ch-handoff" data-step="handoff"><b>06</b> Handoff</a></li>
-          </ol>
-        </nav>
+  <div class="stage" id="stage" data-biz="hvac" data-scn="hvac">
+    <div class="stage-bar">
+      <p class="demo-label">Interactive demo · Sample data</p>
+      <div class="sub-select" role="group" aria-label="Restaurant example" hidden>
+        <button type="button" class="sub" data-scn="restaurant-reserve" aria-pressed="true">Reserve a table</button>
+        <button type="button" class="sub" data-scn="restaurant-order" aria-pressed="false">Place a pickup order</button>
       </div>
-    </aside>
+    </div>
 
-    <ol class="chapters">
+    <!-- Shared centre: receiver and call state -->
+    <div class="stage-center">
+      <div class="center-art" aria-hidden="true">
+        <img src="assets/img/receiver-560.webp" width="560" height="1244" alt="" loading="lazy" decoding="async">
+        <svg class="wave" viewBox="0 0 200 60" preserveAspectRatio="none" focusable="false"><line class="wave-base" x1="0" y1="30" x2="200" y2="30"/><path class="wave-line" d="M0 30 H200"/></svg>
+      </div>
+      <p class="call-state"><span class="call-line">Incoming call</span><span class="call-step" id="call-step">Press Play example or Next step.</span></p>
+      <div class="controls" role="group" aria-label="Demo controls">
+        <button type="button" class="ctl ctl-play" data-act="play">Play example</button>
+        <button type="button" class="ctl" data-act="pause" disabled>Pause</button>
+        <button type="button" class="ctl" data-act="restart">Restart</button>
+        <button type="button" class="ctl" data-act="next">Next step</button>
+      </div>
+    </div>
 
-      <!-- 01 LISTEN -->
-      <li class="chapter" id="ch-listen" data-chapter="listen" data-acc="amber">
-        <p class="ch-num">Chapter 01</p>
-        <h3 class="ch-title">Listen</h3>
-        <p class="ch-copy">The receptionist answers, asks a short follow-up and pulls out what the business needs to know.</p>
-
-        <figure class="transcript" aria-labelledby="tr-cap">
-          <figcaption id="tr-cap" class="mono-cap">Demonstration transcript</figcaption>
-          <ol class="tr-lines">
-            <li class="tr caller"><span class="who">Caller</span><p>My air <mark data-x="service">stopped working</mark> <mark data-x="urgency">tonight</mark> and the house is getting hot.</p></li>
-            <li class="tr agent"><span class="who">Receptionist</span><p>I can help with that. Is the system running but not cooling, or has it stopped completely?</p></li>
-            <li class="tr caller"><span class="who">Caller</span><p>It stopped completely. <mark data-x="request">Can someone come out tomorrow?</mark></p></li>
-            <li class="tr agent"><span class="who">Receptionist</span><p>I'll check tomorrow's openings for a diagnostic visit. Can I get your name and a callback number?</p></li>
-            <li class="tr caller"><span class="who">Caller</span><p>It's Jordan M. You can reach me at (555) 010-0147.</p></li>
-          </ol>
-          <button class="text-btn tr-replay" type="button" hidden>Replay transcript</button>
-        </figure>
-
-        <p class="sr-only">Details understood from the call</p>
-        <dl class="extract">
-          <div data-x="service"><dt>Service</dt><dd>No cooling</dd></div>
-          <div data-x="urgency" class="is-amber"><dt>Urgency</dt><dd>After-hours</dd></div>
-          <div data-x="request"><dt>Request</dt><dd>Diagnostic appointment</dd></div>
-        </dl>
-      </li>
-
-      <!-- 02 ROUTE -->
-      <li class="chapter" id="ch-route" data-chapter="route" data-acc="blue">
-        <p class="ch-num">Chapter 02</p>
-        <h3 class="ch-title">Route</h3>
-        <p class="ch-copy">The receptionist identifies what the caller needs and sends the request to the correct workflow without exposing the customer to the underlying technical system.</p>
-        <p class="sr-only">Workflow routes for this call</p>
-        <ul class="routes">
-          <li class="route is-active"><span class="route-name">Check availability</span><span class="route-state">Selected now. The caller asked for a visit tomorrow.</span></li>
-          <li class="route"><span class="route-name">Book appointment</span><span class="route-state">Follows once the caller picks a time.</span></li>
-          <li class="route is-violet"><span class="route-name">Qualify lead</span><span class="route-state">Runs on the same conversation.</span></li>
-        </ul>
-        <p class="tech-note"><span>Webhook received</span> · <span>Request validated</span> · <span>Route selected</span></p>
-      </li>
-
-      <!-- 03 AVAILABILITY -->
-      <li class="chapter" id="ch-availability" data-chapter="availability" data-acc="blue">
-        <p class="ch-num">Chapter 03</p>
-        <h3 class="ch-title">Check availability</h3>
-        <p class="ch-copy">The system reads the live calendar, removes unavailable periods and returns appointment options that match the scheduling rules.</p>
-
-        <div class="agenda" role="group" aria-labelledby="agenda-cap">
-          <p id="agenda-cap" class="mono-cap">Demonstration calendar · tomorrow, 2026-07-14</p>
-          <ul class="agenda-list">
-            <li class="busy"><time>8:00–9:00 AM</time><span>Booked</span></li>
-            <li class="open"><time>9:00–10:00 AM</time><span>Open</span></li>
-            <li class="busy"><time>10:00–11:30 AM</time><span>Booked</span></li>
-            <li class="open"><time>11:30 AM–12:30 PM</time><span>Open</span></li>
-            <li class="busy"><time>12:30–2:00 PM</time><span>Booked</span></li>
-            <li class="open"><time>2:00–3:00 PM</time><span>Open</span></li>
-            <li class="busy"><time>3:00–5:00 PM</time><span>Booked</span></li>
+    <!-- ===== SALON ===== -->
+    <article class="scn" id="scn-salon" data-scn="salon" data-biz="salon" aria-labelledby="t-salon">
+      <header class="scn-head">
+        <h3 id="t-salon">Salon <span>· Book an appointment</span></h3>
+        <p class="scn-status"><span class="chip">Proposed configuration</span></p>
+        <ol class="flow"><li>Service</li><li>Preferred date</li><li>Staff preference</li><li>Available times</li><li>Appointment summary</li></ol>
+        <p class="scn-why">The receptionist matches the request to the salon's service list, so the appointment length comes from the service instead of a fixed slot.</p>
+      </header>
+      <div class="convo">
+        <p class="col-cap">Conversation</p>
+        <ol class="msgs">
+          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>Hi, I'd like to book a gel manicure on Friday afternoon.</p></li>
+          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Happy to help. A gel manicure takes about 60 minutes. Is that this Friday?</p></li>
+          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>Yes, this Friday, any time after noon.</p></li>
+          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Do you have a preferred nail technician, or is anyone available fine?</p></li>
+          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>Maya, if she's free.</p></li>
+          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>Maya has two 60-minute openings on Friday afternoon: 1:30 PM or 3:45 PM. Which works better?</p></li>
+          <li class="msg caller" data-step="5"><span class="who">Caller</span><p><span data-bind="salon-time">3:45 PM</span>, please. My name is Riley.</p></li>
+          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Thanks, Riley. I have a gel manicure with Maya on Friday at <span data-bind="salon-time">3:45 PM</span>.</p></li>
+        </ol>
+      </div>
+      <div class="outcome">
+        <p class="col-cap">Appointment</p>
+        <div class="menu-ref" data-step="1">
+          <p class="mono-cap">Sample service list</p>
+          <ul class="svc">
+            <li class="is-match"><span>Gel manicure</span><span>60 min</span></li>
+            <li><span>Classic manicure</span><span>30 min</span></li>
+            <li><span>Gel removal and new set</span><span>75 min</span></li>
+            <li><span>Pedicure</span><span>45 min</span></li>
           </ul>
         </div>
-
-        <fieldset class="slot-pick">
-          <legend>Times offered to the caller. Choose one to continue the demo.</legend>
-          <div class="slot-row">
-            <label class="slot-opt"><input type="radio" name="slot" value="0900" data-label="9:00 AM" data-iso="2026-07-14T09:00:00-07:00"><span>9:00 AM</span></label>
-            <label class="slot-opt"><input type="radio" name="slot" value="1130" data-label="11:30 AM" data-iso="2026-07-14T11:30:00-07:00" checked><span>11:30 AM</span></label>
-            <label class="slot-opt"><input type="radio" name="slot" value="1400" data-label="2:00 PM" data-iso="2026-07-14T14:00:00-07:00"><span>2:00 PM</span></label>
-          </div>
+        <dl class="rec">
+          <div data-step="1"><dt>Service</dt><dd>Gel manicure · 60 min</dd></div>
+          <div data-step="2"><dt>Preferred date</dt><dd>Friday, after 12:00 PM</dd></div>
+          <div data-step="3"><dt>Staff preference</dt><dd>Maya</dd></div>
+          <div data-step="5"><dt>Time</dt><dd><span data-bind="salon-time">3:45 PM</span> · 60 min</dd></div>
+          <div data-step="5"><dt>Customer</dt><dd>Riley</dd></div>
+        </dl>
+        <fieldset class="choices" data-step="4">
+          <legend>Openings with Maya, Friday (sample)</legend>
+          <label class="choice"><input type="radio" name="salon-time" value="1330" data-label="1:30 PM"><span>1:30 PM</span></label>
+          <label class="choice"><input type="radio" name="salon-time" value="1545" data-label="3:45 PM" checked><span>3:45 PM</span></label>
         </fieldset>
-        <p class="slot-status" aria-live="polite">Selected: <b data-bind="time">11:30 AM</b>. Every option is 60 minutes long.</p>
-        <a class="btn btn-ghost btn-sm" href="#ch-book">Book <span data-bind="time">11:30 AM</span></a>
-      </li>
-
-      <!-- 04 BOOK -->
-      <li class="chapter" id="ch-book" data-chapter="book" data-acc="blue">
-        <p class="ch-num">Chapter 04</p>
-        <h3 class="ch-title">Book</h3>
-        <p class="ch-copy">Once the caller chooses a time, the system creates the event, sends confirmation and reports the successful booking back to the receptionist.</p>
-        <p class="sr-only">Booking record, demonstration data</p>
-        <dl class="record booking">
-          <div><dt>Customer</dt><dd>Jordan M.</dd></div>
-          <div><dt>Service</dt><dd>No cooling</dd></div>
-          <div><dt>Appointment</dt><dd>Tomorrow · <span data-bind="time">11:30 AM</span></dd></div>
-          <div><dt>Duration</dt><dd>60 minutes</dd></div>
-          <div class="status"><dt>Status</dt><dd><span class="pill">Confirmed</span></dd></div>
-        </dl>
-        <div class="confirm-msg" role="note" aria-label="Confirmation message, demonstration">
-          <p class="mono-cap">Confirmation sent</p>
-          <p>Your diagnostic visit is booked for tomorrow at <span data-bind="time">11:30 AM</span>. A technician will arrive within the scheduled hour.</p>
+        <div class="result" data-step="5">
+          <p class="result-h">Appointment summary ready</p>
+          <p class="qual">Sample data. A live setup would check and book the salon's own calendar. This demo books nothing.</p>
         </div>
-        <p class="tech-note">Event created · Confirmation sent · Result returned to receptionist</p>
-      </li>
+      </div>
+    </article>
 
-      <!-- 05 QUALIFY -->
-      <li class="chapter" id="ch-qualify" data-chapter="qualify" data-acc="violet">
-        <p class="ch-num">Chapter 05</p>
-        <h3 class="ch-title">Qualify</h3>
-        <p class="ch-copy">The business receives organized information instead of an incomplete voicemail, making the next conversation easier to continue.</p>
-        <p class="sr-only">Lead record, fictional demonstration data</p>
-        <dl class="record lead">
-          <div><dt>Customer name</dt><dd>Jordan M.</dd></div>
-          <div><dt>Contact</dt><dd>(555) 010-0147</dd></div>
-          <div><dt>Service requested</dt><dd>AC repair, diagnostic visit</dd></div>
-          <div><dt>Reported issue</dt><dd>System stopped completely; house getting hot</dd></div>
-          <div class="is-amber"><dt>Urgency</dt><dd>After-hours call, wants next-day service</dd></div>
-          <div><dt>Requested date</dt><dd>2026-07-14</dd></div>
-          <div><dt>Appointment status</dt><dd>Confirmed · <span data-bind="time">11:30 AM</span></dd></div>
-          <div class="wide"><dt>Conversation summary</dt><dd>Caller reported the air conditioning stopped completely overnight. Asked for a visit the next day and accepted the <span data-bind="time">11:30 AM</span> opening.</dd></div>
+    <!-- ===== HVAC ===== -->
+    <article class="scn" id="scn-hvac" data-scn="hvac" data-biz="hvac" aria-labelledby="t-hvac">
+      <header class="scn-head">
+        <h3 id="t-hvac">HVAC <span>· Service request</span></h3>
+        <p class="scn-status"><span class="chip chip-dev">Workflow in development</span></p>
+        <ol class="flow"><li>Reported problem</li><li>Service location</li><li>Urgency</li><li>Available appointment</li><li>Service request summary</li></ol>
+        <p class="scn-why">The receptionist narrows down the problem and checks urgency before offering times, so the technician arrives knowing what was reported.</p>
+      </header>
+      <div class="convo">
+        <p class="col-cap">Conversation</p>
+        <ol class="msgs">
+          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>My air conditioner is running, but it isn't cooling.</p></li>
+          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>I can help with that. Is air coming out of the vents, and is it warm?</p></li>
+          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>It's blowing, just warm. The thermostat says 84.</p></li>
+          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Thanks. What's the service address?</p></li>
+          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>1420 Sample Street, Los Angeles.</p></li>
+          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>Is anyone in the home at higher risk from the heat, like an infant or an older adult?</p></li>
+          <li class="msg caller" data-step="4"><span class="who">Caller</span><p>No, but it's getting hot upstairs.</p></li>
+          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>Tomorrow I have 9:00 AM, 11:30 AM or 2:00 PM for a diagnostic visit.</p></li>
+          <li class="msg caller" data-step="5"><span class="who">Caller</span><p><span data-bind="hvac-time">11:30 AM</span> works. It's Jordan.</p></li>
+          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>You're down for <span data-bind="hvac-time">11:30 AM</span> tomorrow, Jordan.</p></li>
+        </ol>
+      </div>
+      <div class="outcome">
+        <p class="col-cap">Service request</p>
+        <dl class="rec">
+          <div data-step="2"><dt>Reported problem</dt><dd>System runs, blowing warm air; thermostat at 84°F</dd></div>
+          <div data-step="3"><dt>Service location</dt><dd>1420 Sample Street, Los Angeles</dd></div>
+          <div data-step="4" class="is-urgency"><dt>Urgency</dt><dd>Standard. No heat-vulnerable occupants; caller wants service soon</dd></div>
+          <div data-step="5"><dt>Appointment</dt><dd>Tomorrow · <span data-bind="hvac-time">11:30 AM</span> · 60 min diagnostic</dd></div>
+          <div data-step="5"><dt>Customer</dt><dd>Jordan</dd></div>
         </dl>
-        <p class="tech-note">All names and numbers are fictional. 555-01xx numbers are reserved for examples.</p>
-      </li>
+        <fieldset class="choices" data-step="4">
+          <legend>Open diagnostic visits tomorrow (sample)</legend>
+          <label class="choice"><input type="radio" name="hvac-time" value="0900" data-label="9:00 AM"><span>9:00 AM</span></label>
+          <label class="choice"><input type="radio" name="hvac-time" value="1130" data-label="11:30 AM" checked><span>11:30 AM</span></label>
+          <label class="choice"><input type="radio" name="hvac-time" value="1400" data-label="2:00 PM"><span>2:00 PM</span></label>
+        </fieldset>
+        <div class="result" data-step="5">
+          <p class="result-h">Service request summary ready</p>
+          <p class="qual">In the HVAC workflow under development, this step checks the calendar, creates the event and sends an email confirmation. This demo creates and sends nothing.</p>
+        </div>
+      </div>
+    </article>
 
-      <!-- 06 HANDOFF -->
-      <li class="chapter" id="ch-handoff" data-chapter="handoff" data-acc="ink">
-        <p class="ch-num">Chapter 06</p>
-        <h3 class="ch-title">The completed handoff</h3>
-        <ul class="checklist">
-          <li>Call answered</li>
-          <li>Need identified</li>
-          <li>Availability checked</li>
-          <li>Appointment booked</li>
-          <li>Confirmation sent</li>
-          <li>Lead organized</li>
-        </ul>
-        <p class="statement">From first ring to scheduled service.</p>
-        <p class="ch-copy">Lumera Creative designs the customer experience, workflow logic and integrations required to turn repetitive communication into a dependable business process.</p>
-        <a class="btn btn-primary" href="mailto:contact@lumeracreative.agency?subject=Discuss%20an%20automation">Discuss an automation</a>
-      </li>
-    </ol>
+    <!-- ===== PLUMBING ===== -->
+    <article class="scn" id="scn-plumbing" data-scn="plumbing" data-biz="plumbing" aria-labelledby="t-plumbing">
+      <header class="scn-head">
+        <h3 id="t-plumbing">Plumbing <span>· Same-day request</span></h3>
+        <p class="scn-status"><span class="chip">Proposed configuration</span></p>
+        <ol class="flow"><li>Issue description</li><li>Location</li><li>Urgency</li><li>Scheduling or callback</li><li>Request summary</li></ol>
+        <p class="scn-why">The receptionist checks whether the leak is contained before offering options. It records a request for the office to confirm and does not dispatch anyone.</p>
+      </header>
+      <div class="convo">
+        <p class="col-cap">Conversation</p>
+        <ol class="msgs">
+          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>There's a leak under my kitchen sink. Can someone come today?</p></li>
+          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Let's get that started. Is water still leaking, and were you able to close the valve under the sink?</p></li>
+          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>It was dripping steadily. I closed the valve and it slowed down.</p></li>
+          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Good. What's the address?</p></li>
+          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>88 Sample Lane, Glendale.</p></li>
+          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>Is there water on the floor, or near any outlets or appliances?</p></li>
+          <li class="msg caller" data-step="4"><span class="who">Caller</span><p>Just a small puddle in the cabinet. Nothing electrical.</p></li>
+          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>Today's openings are limited. I can request the 4:00 to 6:00 PM window, or ask the office to call you back.</p></li>
+          <li class="msg caller" data-step="5"><span class="who">Caller</span><p>Please request <span data-bind="plumb-opt">the 4:00–6:00 PM window</span>. I'm Sam.</p></li>
+          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Thanks, Sam. I've passed that to the office. They'll confirm with you before anyone is sent.</p></li>
+        </ol>
+      </div>
+      <div class="outcome">
+        <p class="col-cap">Service request</p>
+        <dl class="rec">
+          <div data-step="2"><dt>Issue</dt><dd>Steady drip under kitchen sink; shutoff valve closed, leak slowed</dd></div>
+          <div data-step="3"><dt>Location</dt><dd>88 Sample Lane, Glendale</dd></div>
+          <div data-step="4" class="is-urgency"><dt>Urgency</dt><dd>Same-day request. Contained after shutoff; no electrical risk reported</dd></div>
+          <div data-step="5"><dt>Requested</dt><dd><span data-bind="plumb-opt">the 4:00–6:00 PM window</span></dd></div>
+          <div data-step="5"><dt>Customer</dt><dd>Sam</dd></div>
+        </dl>
+        <fieldset class="choices" data-step="4">
+          <legend>Options offered today (sample)</legend>
+          <label class="choice"><input type="radio" name="plumb-opt" value="window" data-label="the 4:00–6:00 PM window" checked><span>4:00–6:00 PM window</span></label>
+          <label class="choice"><input type="radio" name="plumb-opt" value="callback" data-label="a callback from the office"><span>Office callback</span></label>
+        </fieldset>
+        <div class="result" data-step="5">
+          <p class="result-h">Request sent for office confirmation</p>
+          <p class="qual">Proposed configuration. No technician is dispatched. A live transfer to staff would be a separate setup and isn't built yet.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== RESTAURANT: RESERVATION ===== -->
+    <article class="scn" id="scn-restaurant-reserve" data-scn="restaurant-reserve" data-biz="restaurant" aria-labelledby="t-res">
+      <header class="scn-head">
+        <h3 id="t-res">Restaurant <span>· Reserve a table</span></h3>
+        <p class="scn-status"><span class="chip">Proposed configuration</span></p>
+        <ol class="flow"><li>Party size</li><li>Date and time</li><li>Availability</li><li>Caller's choice</li><li>Reservation summary</li></ol>
+        <p class="scn-why">A table depends on capacity rules, not an empty calendar. The receptionist checks those rules and offers nearby times when the requested one is full.</p>
+      </header>
+      <div class="convo">
+        <p class="col-cap">Conversation</p>
+        <ol class="msgs">
+          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>Can I reserve a table for four tomorrow at seven?</p></li>
+          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Sure. That's four guests. Is it all adults, and do you need any seating accommodations?</p></li>
+          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>Four adults, and indoors is fine.</p></li>
+          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Let me check tomorrow at 7:00 PM for four, indoors.</p></li>
+          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>7:00 is full for a party of four. I can offer 6:30 PM or 8:15 PM.</p></li>
+          <li class="msg caller" data-step="4"><span class="who">Caller</span><p><span data-bind="res-time">8:15 PM</span> is good. The name is Alex.</p></li>
+          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Table for four, tomorrow at <span data-bind="res-time">8:15 PM</span>, under Alex. Is that right?</p></li>
+          <li class="msg caller" data-step="5"><span class="who">Caller</span><p>That's right. Thank you.</p></li>
+        </ol>
+      </div>
+      <div class="outcome">
+        <p class="col-cap">Reservation</p>
+        <dl class="rec">
+          <div data-step="1"><dt>Party size</dt><dd>4 adults</dd></div>
+          <div data-step="2"><dt>Requested</dt><dd>Tomorrow · 7:00 PM · indoors</dd></div>
+        </dl>
+        <div class="capacity" data-step="3">
+          <p class="mono-cap">Capacity check (sample rules)</p>
+          <ul class="cap-rows">
+            <li class="full"><span>7:00 PM</span><span>4-tops full</span></li>
+            <li><span>6:30 PM</span><span>1 four-top free</span></li>
+            <li><span>8:15 PM</span><span>2 four-tops free</span></li>
+          </ul>
+          <p class="cap-rule">Rules used: 90-minute seatings, five four-person tables, no more than 16 arriving guests per 15 minutes.</p>
+        </div>
+        <fieldset class="choices" data-step="3">
+          <legend>Times offered (sample)</legend>
+          <label class="choice"><input type="radio" name="res-time" value="1830" data-label="6:30 PM"><span>6:30 PM</span></label>
+          <label class="choice"><input type="radio" name="res-time" value="2015" data-label="8:15 PM" checked><span>8:15 PM</span></label>
+        </fieldset>
+        <dl class="rec">
+          <div data-step="4"><dt>Time</dt><dd>Tomorrow · <span data-bind="res-time">8:15 PM</span></dd></div>
+          <div data-step="4"><dt>Name</dt><dd>Alex</dd></div>
+        </dl>
+        <div class="result" data-step="5">
+          <p class="result-h">Reservation summary read back</p>
+          <p class="qual">Sample data. A live setup would hold the table in the restaurant's reservation system once that system is chosen and connected.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== RESTAURANT: PICKUP ORDER ===== -->
+    <article class="scn" id="scn-restaurant-order" data-scn="restaurant-order" data-biz="restaurant" aria-labelledby="t-ord">
+      <header class="scn-head">
+        <h3 id="t-ord">Restaurant <span>· Place a pickup order</span></h3>
+        <p class="scn-status"><span class="chip">Proposed configuration</span></p>
+        <ol class="flow"><li>Menu</li><li>Items and quantities</li><li>Allowed changes</li><li>Read-back</li><li>Pickup request</li></ol>
+        <p class="scn-why">The receptionist takes items only from the menu it's given, accepts only the changes that menu allows and reads the order back before passing it on.</p>
+      </header>
+      <div class="convo">
+        <p class="col-cap">Conversation</p>
+        <ol class="msgs">
+          <li class="msg caller" data-step="1"><span class="who">Caller</span><p>I'd like to place an order for pickup.</p></li>
+          <li class="msg agent" data-step="1"><span class="who">Receptionist</span><p>Of course. What would you like?</p></li>
+          <li class="msg caller" data-step="2"><span class="who">Caller</span><p>Two margherita pizzas and one Caesar salad.</p></li>
+          <li class="msg agent" data-step="2"><span class="who">Receptionist</span><p>Any changes? The pizza comes with a gluten-free crust option, and the salad can have dressing on the side.</p></li>
+          <li class="msg caller" data-step="3"><span class="who">Caller</span><p>Dressing on the side. And can you add chicken to the salad?</p></li>
+          <li class="msg agent" data-step="3"><span class="who">Receptionist</span><p>Chicken isn't an option on this menu, so I can't add it. I've noted the dressing on the side.</p></li>
+          <li class="msg agent" data-step="4"><span class="who">Receptionist</span><p>That's two margherita pizzas and one Caesar salad with dressing on the side. Is that right?</p></li>
+          <li class="msg caller" data-step="4"><span class="who">Caller</span><p>Yes. The name is Casey.</p></li>
+          <li class="msg agent" data-step="5"><span class="who">Receptionist</span><p>Thanks, Casey. I've passed your order request to the restaurant, and they'll confirm the pickup time.</p></li>
+        </ol>
+      </div>
+      <div class="outcome">
+        <p class="col-cap">Pickup order</p>
+        <div class="menu-ref" data-step="1">
+          <p class="mono-cap">Sample menu · fictional</p>
+          <ul class="svc">
+            <li class="is-match"><span>Margherita pizza</span><span>$14.00</span></li>
+            <li class="is-match"><span>Caesar salad</span><span>$9.00</span></li>
+            <li><span>Garlic knots (6)</span><span>$6.00</span></li>
+            <li><span>Lemonade</span><span>$4.00</span></li>
+          </ul>
+          <p class="cap-rule">Allowed changes: gluten-free crust (+$3.00), dressing on the side, no croutons.</p>
+        </div>
+        <dl class="rec">
+          <div data-step="2"><dt>Items</dt><dd>2 × Margherita pizza<br>1 × Caesar salad</dd></div>
+          <div data-step="3"><dt>Changes</dt><dd>Caesar salad: dressing on the side</dd></div>
+          <div data-step="3" class="is-declined"><dt>Not accepted</dt><dd>Add chicken (not on this menu)</dd></div>
+          <div data-step="4"><dt>Read back</dt><dd>Confirmed by caller · Casey</dd></div>
+          <div data-step="5"><dt>Estimated subtotal</dt><dd>$37.00 before tax (sample prices)</dd></div>
+        </dl>
+        <div class="result" data-step="5">
+          <p class="result-h">Pickup request ready for the restaurant</p>
+          <p class="qual">Order intake only. Nothing is paid, sent to a kitchen or entered in a POS, and the restaurant confirms the pickup time.</p>
+        </div>
+      </div>
+    </article>
+
+    <p class="sr-only" id="demo-live" role="status" aria-live="polite"></p>
   </div>
 </section>
 
-<!-- ============ BEHIND THE CALL ============ -->
-<section class="behind" id="behind" aria-labelledby="behind-title">
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how" aria-labelledby="how-title">
   <div class="sec-head">
-    <p class="eyebrow">Technical view</p>
-    <h2 id="behind-title" class="split">Behind the call</h2>
-    <p>The caller only hears a conversation. Underneath, each request follows a fixed, testable path.</p>
+    <p class="eyebrow">The same six steps</p>
+    <h2 id="how-title" class="sec-title split">Every business, one dependable pattern.</h2>
   </div>
+  <ol class="steps6">
+    <li><span class="sn">01</span><h3>Answer the call.</h3><p>Every caller gets a consistent greeting, at any hour the line is configured to answer.</p></li>
+    <li><span class="sn">02</span><h3>Understand the request.</h3><p>The receptionist works out whether the caller wants an appointment, a repair, a table or an order.</p></li>
+    <li><span class="sn">03</span><h3>Collect the required details.</h3><p>It asks only the questions your business needs for that request.</p></li>
+    <li><span class="sn">04</span><h3>Check the connected system when available.</h3><p>Where a calendar or booking tool is connected, it checks real availability before offering options.</p></li>
+    <li><span class="sn">05</span><h3>Confirm the next step.</h3><p>The caller hears exactly what was recorded and what happens next.</p></li>
+    <li><span class="sn">06</span><h3>Pass organized information to the team.</h3><p>Your staff get a clear summary instead of a voicemail to decode.</p></li>
+  </ol>
+</section>
 
-  <div class="flow">
-    <p class="sr-only">Request path</p>
-    <ol class="flow-spine">
-      <li><span class="fnode">Voice agent</span><span class="fnote">Holds the conversation and calls a tool when it needs data.</span></li>
-      <li><span class="fnode">Webhook</span><span class="fnote">Receives the tool request.</span></li>
-      <li><span class="fnode">Request abstraction</span><span class="fnote">Reads the tool name and its arguments into one consistent shape.</span></li>
-      <li><span class="fnode">Tool routing</span><span class="fnote">Sends the request to one of three paths.</span></li>
-    </ol>
+<!-- ============ WHAT CHANGES ============ -->
+<section class="configure" id="configure" aria-labelledby="configure-title">
+  <div class="sec-head">
+    <p class="eyebrow">Configured for you</p>
+    <h2 id="configure-title" class="sec-title split">What changes for each business.</h2>
+    <p class="sec-sub">The pattern stays the same. These parts are set up around how your team already works.</p>
+  </div>
+  <dl class="cfg">
+    <div><dt>Services</dt><dd>What you offer, how long each takes and which staff can do it.</dd><dd class="ex">Salon: a gel removal and new set takes longer than a classic manicure.</dd></div>
+    <div><dt>Scheduling rules</dt><dd>Hours, buffers, service areas and how far ahead people can book.</dd><dd class="ex">HVAC: 60-minute diagnostic visits, offered only in open calendar time.</dd></div>
+    <div><dt>Questions</dt><dd>The details your team needs before a visit or a call back.</dd><dd class="ex">Plumbing: is the leak active, and has the water been shut off?</dd></div>
+    <div><dt>Reservation capacity</dt><dd>Table sizes, seating length and how many guests can arrive at once.</dd><dd class="ex">Restaurant: a full 7:00 PM means offering 6:30 or 8:15 instead.</dd></div>
+    <div><dt>Menu options</dt><dd>Items, prices and the changes your kitchen accepts.</dd><dd class="ex">Restaurant: dressing on the side is fine; unlisted add-ons are declined.</dd></div>
+    <div><dt>Escalation procedures</dt><dd>When a person should take over, and how they're reached.</dd><dd class="ex">Any business: urgent or unusual calls go to your staff under rules you approve.</dd></div>
+  </dl>
 
-    <div class="flow-routes">
-      <p class="route-cap" aria-hidden="true">Tool routing · three paths</p>
-      <div class="route-tabs" role="tablist" aria-label="Choose a route">
-        <button role="tab" id="tab-avail" aria-controls="panel-avail" aria-selected="true" class="rt is-blue" type="button">Availability</button>
-        <button role="tab" id="tab-book" aria-controls="panel-book" aria-selected="false" tabindex="-1" class="rt is-blue" type="button">Booking</button>
-        <button role="tab" id="tab-qual" aria-controls="panel-qual" aria-selected="false" tabindex="-1" class="rt is-violet" type="button">Qualification</button>
-      </div>
-      <div class="route-panels">
-        <section role="tabpanel" id="panel-avail" aria-labelledby="tab-avail" class="rp">
-          <h3>Check availability</h3>
-          <ol class="steps">
-            <li>Receive the customer's requested date.</li>
-            <li>Retrieve existing Google Calendar events.</li>
-            <li>Combine the request with calendar availability.</li>
-            <li>Generate valid appointment times.</li>
-            <li>Return available slots to the voice receptionist.</li>
-          </ol>
-        </section>
-        <section role="tabpanel" id="panel-book" aria-labelledby="tab-book" class="rp">
-          <h3>Book appointment</h3>
-          <ol class="steps">
-            <li>Receive the customer's name and chosen appointment time.</li>
-            <li>Create the Google Calendar event.</li>
-            <li>Send a booking confirmation.</li>
-            <li>Return the successful booking result to the voice receptionist.</li>
-          </ol>
-        </section>
-        <section role="tabpanel" id="panel-qual" aria-labelledby="tab-qual" class="rp">
-          <h3>Qualify lead</h3>
-          <ol class="steps">
-            <li>Capture the service type.</li>
-            <li>Capture the reported HVAC problem.</li>
-            <li>Determine urgency.</li>
-            <li>Structure the lead information for follow-up.</li>
-          </ol>
-        </section>
+  <details class="connects">
+    <summary><span>How it connects</span><span class="sum-hint">Technical view</span></summary>
+    <div class="connects-body">
+      <p>The HVAC example is based on a workflow Lumera is developing. It receives requests from a voice agent and sends each one down one of three paths.</p>
+      <p class="sr-only">Request path in the HVAC workflow</p>
+      <ol class="arch">
+        <li>Voice agent</li><li>Webhook</li><li>Request abstraction</li><li>Tool routing</li>
+      </ol>
+      <ul class="paths">
+        <li><b>Check availability</b> Reads existing Google Calendar events and returns open times.</li>
+        <li><b>Book appointment</b> Creates the calendar event and sends an email confirmation.</li>
+        <li><b>Qualify lead</b> Captures service type, problem and urgency for follow-up.</li>
+      </ul>
+      <div class="status-grid">
+        <div><p class="mono-cap">Used in the HVAC workflow in development</p><p>Voice agent, webhooks, Google Calendar, email. Times in America/Los_Angeles, ISO 8601 dates, about 60-minute appointments.</p></div>
+        <div><p class="mono-cap">Simulated on this page</p><p>Every conversation, opening, capacity check, menu and summary. The page connects to nothing and creates, sends or orders nothing.</p></div>
+        <div><p class="mono-cap">Proposed, not built yet</p><p>Salon, plumbing and restaurant configurations. Reservation, ordering, payment, POS and staff-transfer integrations are chosen per business and named once they're verified.</p></div>
       </div>
     </div>
-
-    <p class="sr-only">Current system configuration</p>
-        <dl class="config">
-      <div><dt>Timezone</dt><dd>America/Los_Angeles</dd></div>
-      <div><dt>Appointment length</dt><dd>About 60 minutes</dd></div>
-      <div><dt>Date format</dt><dd>ISO 8601 <code>2026-07-14T11:30:00-07:00</code></dd></div>
-      <div><dt>Integrations</dt><dd>Voice agent, webhooks, Google Calendar, email</dd></div>
-    </dl>
-    <p class="fine">Credentials, endpoints and calendar identifiers are kept out of this page. The demonstration above does not connect to a live calendar.</p>
-  </div>
-</section>
-
-<!-- ============ CAPABILITIES ============ -->
-<section class="caps" id="capabilities" aria-labelledby="caps-title">
-  <div class="sec-head">
-    <p class="eyebrow">What the prototype does</p>
-    <h2 id="caps-title" class="split">Only what the workflow shows.</h2>
-  </div>
-  <dl class="cap-list">
-    <div><dt>Voice-call handling</dt><dd>Answers and holds a short, structured conversation.</dd></div>
-    <div><dt>Intent routing</dt><dd>Sends each request to availability, booking or qualification.</dd></div>
-    <div><dt>Calendar availability checks</dt><dd>Reads existing events and offers only open times.</dd></div>
-    <div><dt>Appointment scheduling</dt><dd>Creates the calendar event for the chosen time.</dd></div>
-    <div><dt>Confirmation messages</dt><dd>Sends the booking confirmation by email.</dd></div>
-    <div><dt>Lead qualification</dt><dd>Captures service type, problem and urgency.</dd></div>
-    <div><dt>Structured handoffs</dt><dd>Gives the team an organized record, not a voicemail.</dd></div>
-    <div><dt>Workflow monitoring</dt><dd>Each run can be reviewed to see which step completed or failed.</dd></div>
-  </dl>
-</section>
-
-<!-- ============ PROCESS ============ -->
-<section class="process" id="process" aria-labelledby="process-title">
-  <div class="sec-head">
-    <p class="eyebrow">How Lumera builds it</p>
-    <h2 id="process-title" class="split">Built around your actual process.</h2>
-    <p>Automation supports the people who run the business. Situations that need judgment should stay with a person, so every build includes escalation rules and a manual fallback.</p>
-  </div>
-  <ol class="proc">
-    <li><span class="pn">01</span><h3>Discover</h3><p>Map the calls, questions and scheduling rules that currently require staff attention.</p></li>
-    <li><span class="pn">02</span><h3>Design</h3><p>Define the conversation, decision paths, escalation conditions and customer experience.</p></li>
-    <li><span class="pn">03</span><h3>Connect</h3><p>Integrate the approved calendar, communication and business systems.</p></li>
-    <li><span class="pn">04</span><h3>Test</h3><p>Validate normal requests, unavailable dates, incomplete information, urgent cases and integration failures.</p></li>
-    <li><span class="pn">05</span><h3>Launch</h3><p>Release the workflow with monitoring, documentation and a manual fallback.</p></li>
-    <li><span class="pn">06</span><h3>Improve</h3><p>Review real usage and refine the flow based on verified operational needs.</p></li>
-  </ol>
+  </details>
 </section>
 
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact" aria-labelledby="contact-title">
   <div class="sec-head">
-    <p class="eyebrow">Start a conversation</p>
-    <h2 id="contact-title" class="split">What should your business stop handling manually?</h2>
-    <p>This form does not send anything from the page. When you submit it, your email app opens with the message addressed to <a href="mailto:contact@lumeracreative.agency">contact@lumeracreative.agency</a>, and you decide whether to send it.</p>
+    <p class="eyebrow">Start with your calls</p>
+    <h2 id="contact-title" class="sec-title split">What should happen when your next customer calls?</h2>
+    <p class="sec-sub">Tell us what comes in by phone and what you'd like to happen next.</p>
+    <p class="contact-cta"><a class="btn btn-primary" href="mailto:contact@lumeracreative.agency?subject=Voice%20receptionist%20workflow">Discuss your workflow</a></p>
+    <p class="fine">Or use the form. It sends nothing from this page: submitting opens your email app with the message addressed to <a href="mailto:contact@lumeracreative.agency">contact@lumeracreative.agency</a>, and you choose whether to send it.</p>
   </div>
 
   <form class="inquiry" action="mailto:contact@lumeracreative.agency" method="post" enctype="text/plain" novalidate>
@@ -470,15 +425,14 @@
       <p class="err" id="e-phone"></p>
     </div>
     <div class="field">
-      <label for="f-ind">Industry</label>
+      <label for="f-ind">Business type</label>
       <select id="f-ind" name="industry" required aria-describedby="e-ind">
         <option value="">Choose one</option>
+        <option>Salon or spa</option>
         <option>HVAC</option>
         <option>Plumbing</option>
-        <option>Electrical</option>
-        <option>Roofing</option>
+        <option>Restaurant</option>
         <option>Other home services</option>
-        <option>Professional services</option>
         <option>Other</option>
       </select>
       <p class="err" id="e-ind"></p>
@@ -491,9 +445,9 @@
       </div>
     </fieldset>
     <div class="field wide">
-      <label for="f-proc">What process takes too much time?</label>
+      <label for="f-proc">What should happen when a customer calls?</label>
       <textarea id="f-proc" name="process" rows="5" required maxlength="1500" aria-describedby="h-proc e-proc"></textarea>
-      <p class="hint" id="h-proc">For example: after-hours calls, rescheduling, quote follow-ups.</p>
+      <p class="hint" id="h-proc">For example: book appointments, take reservations, collect repair details for a call back.</p>
       <p class="err" id="e-proc"></p>
     </div>
     <div class="field wide check">
@@ -501,7 +455,7 @@
       <p class="err" id="e-consent"></p>
     </div>
     <div class="field wide actions">
-      <button class="btn btn-primary" type="submit">Open email to send</button>
+      <button class="btn btn-ghost" type="submit">Open email to send</button>
       <p class="form-status" role="status" aria-live="polite"></p>
     </div>
   </form>
@@ -511,7 +465,7 @@
 
 <footer class="site-foot">
   <div class="foot-row">
-    <p><b>Working automation prototype by Lumera Creative.</b> It is not a commissioned client system and no HVAC company named or implied here uses it. All people, numbers and appointments shown are fictional demonstration data.</p>
+    <p><b>Voice Receptionist Automation is a prototype in development by Lumera Creative.</b> It is not a commissioned client system. Every business, person, address, price and appointment shown is fictional sample data.</p>
   </div>
   <div class="foot-row foot-links">
     <p>© 2026 Lumera Creative LLC</p>
@@ -523,7 +477,5 @@
     </ul>
   </div>
 </footer>
-
-<a class="dock-cta" href="#contact" aria-hidden="true" tabindex="-1">Build this for my business</a>
 </body>
 </html>
